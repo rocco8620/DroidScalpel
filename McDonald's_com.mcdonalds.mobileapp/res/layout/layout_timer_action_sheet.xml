@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/offer_timer_indicate_holder" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:id="@id/offer_timer_indicate_shadow" android:background="@drawable/shadow_divider" android:layout_width="fill_parent" android:layout_height="10.0dip" />
+    <RelativeLayout android:background="@color/GMA_Lite.background" android:padding="10.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true">
+            <mcdonalds.core.view.RuntimeUpdatableTextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/gmal_offer_qr_code_info_text_timer_expires" style="@style/GMA_Lite_TextAppearance.Body" />
+            <LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <mcdonalds.core.view.ExpireClock android:id="@id/qr_expire_clock" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layoutDirection="ltr" style="@style/GMA_Lite_ExpireClock.Dark" />
+                <mcdonalds.core.view.RuntimeUpdatableTextView android:id="@id/offer_tiemr_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="10.0dip" android:layout_marginEnd="10.0dip" style="@style/GMA_Lite_TextAppearance.Title" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

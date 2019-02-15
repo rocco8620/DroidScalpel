@@ -1,0 +1,28 @@
+invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+iget-object v0, p1, L;->member:L;
+iput-object v0, p0, L;->member:L;
+iget-object v0, p1, L;->member:L;
+iput-object v0, p0, L;->member:L;
+iget v0, p1, L;->member:I
+iput v0, p0, L;->member:I
+iget-object v0, p1, L;->member:Ljava/lang/String;
+iput-object v0, p0, L;->member:Ljava/lang/String;
+iget-object v0, p1, L;->member:L;
+iput-object v0, p0, L;->member:L;
+iget-object v0, p1, L;->member:L;
+invoke-virtual {v0}, L;->function()L;
+move-result-object v0
+iput-object v0, p0, L;->member:L;
+iget-object v0, p1, L;->member:L;
+iput-object v0, p0, L;->member:L;
+iget-object v0, p1, L;->member:L;
+iput-object v0, p0, L;->member:L;
+iget-object v0, p1, L;->member:L;
+iput-object v0, p0, L;->member:L;
+iget-object v0, p1, L;->member:L;
+iput-object v0, p0, L;->member:L;
+iget-wide v0, p1, L;->member:J
+iput-wide v0, p0, L;->member:J
+iget-wide v0, p1, L;->member:J
+iput-wide v0, p0, L;->member:J
+return-void

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:background="@color/GMA_Lite.background" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_centerInParent="true">
+        <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/update_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="10.0dip" android:text="@string/gmal_forceupdate_info_text_title" style="@style/GMA_Lite_TextAppearance.Header" />
+        <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/update_message" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="10.0dip" android:layout_marginTop="10.0dip" android:text="@string/gmal_forceupdate_info_text_body" style="@style/GMA_Lite_TextAppearance.Body" />
+        <LinearLayout android:layout_gravity="center_horizontal" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip">
+            <mcdonalds.core.view.RuntimeUpdatableButtonView android:id="@id/update_update_button" android:layout_width="fill_parent" android:layout_margin="10.0dip" android:text="@string/gmal_forceupdate_button_download" style="@style/GMA_Lite_ButtonAppearance" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

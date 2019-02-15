@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="gmal_offer_detail_available_until">
+        <item quantity="zero">يوم حتى يجهز يوم حتى يجهز أيام حتى يجهز</item>
+    </plurals>
+    <plurals name="gmal_offer_list_available_until">
+        <item quantity="zero">يوم يوم أيام</item>
+    </plurals>
+</resources>

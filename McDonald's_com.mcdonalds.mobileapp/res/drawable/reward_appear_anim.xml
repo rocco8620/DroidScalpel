@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list android:oneshot="true"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00001" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00002" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00003" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00004" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00005" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00006" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00007" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00008" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00009" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00010" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00011" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00012" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00013" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00014" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00015" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00016" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00017" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00018" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00019" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00020" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00021" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00022" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00023" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00024" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00025" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00026" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00027" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00028" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00029" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00030" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00031" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00032" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00033" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00034" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00035" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00036" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00037" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00038" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00039" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00040" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00041" />
+    <item android:duration="@integer/GMA_lite.Reward_anim_duration" android:drawable="@drawable/reward_appear_00042" />
+</animation-list>

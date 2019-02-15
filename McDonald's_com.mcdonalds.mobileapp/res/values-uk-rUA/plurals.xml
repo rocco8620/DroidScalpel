@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="gmal_offer_detail_available_until">
+        <item quantity="zero">день, поки не буде доступний день, поки не буде доступний днів, поки не буде доступний</item>
+    </plurals>
+    <plurals name="gmal_offer_list_available_until">
+        <item quantity="zero">день день дні</item>
+    </plurals>
+</resources>

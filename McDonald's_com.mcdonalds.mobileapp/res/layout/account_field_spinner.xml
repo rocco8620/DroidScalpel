@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:background="@color/GMA_Lite.shadow_border" android:layout_width="fill_parent" android:layout_height="2.0px" />
+    <RelativeLayout android:orientation="horizontal" android:padding="10.0dip" android:layout_width="fill_parent" android:layout_height="50.0dip">
+        <mcdonalds.core.view.RuntimeUpdatableTextView android:textStyle="bold" android:id="@id/field_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_marginStart="5.0dip" style="@style/GMA_Lite_TextAppearance.Header" />
+        <Spinner android:id="@id/field_spinner" android:focusable="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+    <View android:background="@color/GMA_Lite.shadow_border" android:layout_width="fill_parent" android:layout_height="2.0px" />
+</LinearLayout>

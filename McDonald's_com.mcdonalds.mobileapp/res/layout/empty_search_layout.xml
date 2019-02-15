@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@color/GMA_Lite.White" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <include layout="@layout/empty_fries_layout" />
+    <LinearLayout android:orientation="vertical" android:id="@id/restaurant_header" android:background="@color/GMA_Lite.White" android:padding="@dimen/app_padding" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1.0">
+        <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center" android:layout_gravity="center" android:id="@id/restaurant_title" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/app_padding" android:layout_marginRight="@dimen/app_padding" android:layout_marginBottom="@dimen/app_padding" android:text="@string/gmal_restaurant_error_no_results_found" style="@style/GMA_Lite_TextAppearance.Header" />
+        <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center" android:layout_gravity="center" android:id="@id/restaurant_address" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/app_padding" android:layout_marginRight="@dimen/app_padding" android:text="@string/gmal_restaurant_error_no_results_found_detail" style="@style/GMA_Lite_TextAppearance.Body" />
+    </LinearLayout>
+</LinearLayout>

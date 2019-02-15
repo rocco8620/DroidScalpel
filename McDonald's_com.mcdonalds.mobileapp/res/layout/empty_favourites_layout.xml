@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@color/GMA_Lite.White" android:padding="@dimen/app_padding" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="40.0dip" android:src="@drawable/restaurant_no_favorite" />
+    <mcdonalds.core.view.RuntimeUpdatableTextView android:textStyle="bold" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/restaurant_title" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="12.0dip" android:layout_marginRight="12.0dip" android:text="@string/gmal_restaurant_favorite_info_text_no_favorites_title" style="@style/GMA_Lite_TextAppearance.Header" />
+    <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/restaurant_address" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="12.0dip" android:layout_marginTop="10.0dip" android:layout_marginRight="12.0dip" android:text="@string/gmal_restaurant_favorite_info_text_no_favorites_body" style="@style/GMA_Lite_TextAppearance.Body" />
+</LinearLayout>

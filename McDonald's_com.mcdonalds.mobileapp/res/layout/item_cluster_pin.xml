@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/cluster_background" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/restaurant_pin_clustered" />
+    <TextView android:textSize="@dimen/GMA_Lite.Medium_font_size" android:textColor="@color/GMA_Lite.White" android:id="@id/amu_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="7.0dip" android:layout_centerHorizontal="true" />
+</RelativeLayout>

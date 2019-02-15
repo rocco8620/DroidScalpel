@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="gmal_offer_detail_available_until">
+        <item quantity="other">أيام حتى التوفر</item>
+        <item quantity="zero">يوم حتى التوفر</item>
+        <item quantity="one">يوم حتى التوفر</item>
+        <item quantity="two">أيام حتى التوفر</item>
+        <item quantity="few">أيام حتى التوفر</item>
+        <item quantity="many">أيام حتى التوفر</item>
+    </plurals>
+    <plurals name="gmal_offer_list_available_until">
+        <item quantity="other">أيام</item>
+        <item quantity="zero">يوم</item>
+        <item quantity="one">يوم</item>
+        <item quantity="two">أيام</item>
+        <item quantity="few">أيام</item>
+        <item quantity="many">أيام</item>
+    </plurals>
+</resources>

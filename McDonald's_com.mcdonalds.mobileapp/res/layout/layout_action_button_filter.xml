@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:clipChildren="false" android:layout_width="fill_parent" android:layout_height="80.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="5.0dip" android:layout_toStartOf="@id/filter_fab_holder">
+        <mcdonalds.core.view.AutoResizeTextView android:textSize="@dimen/GMA_Lite.Medium_font_size" android:textColor="@color/GMA_Lite.primaly_text_brand" android:gravity="center_vertical" android:id="@id/filter_indicator" android:background="@drawable/restaurant_filter_box" android:paddingBottom="10.0dip" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:maxHeight="55.0dip" android:minHeight="@dimen/button_height" android:layout_alignParentBottom="true" android:paddingStart="10.0dip" android:paddingEnd="38.0dip" android:layout_marginStart="10.0dip" android:layout_marginEnd="5.0dip" app:imageColor="@color/GMA_lite.White_80_opacity" />
+        <FrameLayout android:id="@id/restaurant_filter_clear_button" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="5.0dip" android:layout_alignTop="@id/filter_indicator" android:layout_alignBottom="@id/filter_indicator" android:paddingEnd="20.0dip" android:layout_alignEnd="@id/filter_indicator">
+            <mcdonalds.core.view.ColorImage android:layout_gravity="center" android:id="@id/filter_clear_button" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/clear_filter_icon" app:imageColor="?themeColor" />
+        </FrameLayout>
+    </RelativeLayout>
+    <RelativeLayout android:id="@id/filter_fab_holder" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:paddingStart="10.0dip" android:paddingEnd="10.0dip" android:layout_alignParentEnd="true">
+        <mcdonalds.restaurant.CustomFloatingButton android:id="@id/filter_fab" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="10.0dip" fab:fab_colorNormal="@color/GMA_Lite.White" fab:fab_colorPressed="@color/GMA_Lite.shadow_border"
+          xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fab="http://schemas.android.com/apk/res-auto" />
+    </RelativeLayout>
+</RelativeLayout>

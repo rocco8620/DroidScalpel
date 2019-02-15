@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <include layout="@layout/layout_qr_code" />
+    <include android:id="@id/hero_image" android:adjustViewBounds="true" android:minHeight="1.0dip" layout="@layout/item_card_header_not_signed_in" />
+</FrameLayout>

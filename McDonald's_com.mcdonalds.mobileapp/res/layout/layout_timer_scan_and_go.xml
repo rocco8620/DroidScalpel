@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/offer_timer_indicate_holder" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:id="@id/offer_timer_indicate_shadow" android:background="@drawable/shadow_divider" android:layout_width="fill_parent" android:layout_height="8.0dip" />
+    <RelativeLayout android:background="@color/GMA_Lite.background" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="8.0dip" android:layout_marginTop="8.0dip" android:layout_marginRight="8.0dip">
+        <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:id="@id/offer_timer_text_holder" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_centerInParent="true">
+            <LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <mcdonalds.core.view.RuntimeUpdatableTextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/gmal_offer_bar_code_expire_text" style="@style/GMA_Lite_TextAppearance.Body" />
+                <mcdonalds.core.view.RuntimeUpdatableTextView android:id="@id/offer_tiemr_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="1.0dip" android:layout_marginStart="4.0dip" style="@style/GMA_Lite_TextAppearance.Header" />
+            </LinearLayout>
+            <android.support.v4.view.ViewPager android:id="@id/offer_timer_pager" android:layout_width="fill_parent" android:layout_height="200.0dip" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

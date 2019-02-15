@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:paddingTop="5.0dip" android:paddingBottom="5.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <mcdonalds.core.view.RuntimeUpdatableTextView android:textColor="@color/GMA_Lite.primaly_text_brand" android:id="@id/filter_item_text" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_marginStart="10.0dip" android:layout_marginEnd="5.0dip" android:layout_toStartOf="@id/filter_item_switch" style="@style/GMA_Lite_TextAppearance.Header" />
+    <android.support.v7.widget.SwitchCompat android:id="@id/filter_item_switch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_marginEnd="10.0dip" android:layout_alignParentEnd="true" />
+</RelativeLayout>

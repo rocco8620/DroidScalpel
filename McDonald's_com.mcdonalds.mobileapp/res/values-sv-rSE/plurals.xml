@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="gmal_offer_detail_available_until">
+        <item quantity="other">dagar tills tillgänglig</item>
+        <item quantity="zero">dag tills tillgänglig</item>
+        <item quantity="one">dag tills tillgänglig</item>
+    </plurals>
+    <plurals name="gmal_offer_list_available_until">
+        <item quantity="other">dagar</item>
+        <item quantity="zero">dag</item>
+        <item quantity="one">dag</item>
+    </plurals>
+</resources>

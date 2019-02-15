@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mcdonalds.loyalty.view.BadgeView android:id="@id/badgeView" android:tag="layout/offer_item_badge_0" android:layout_width="22.0dip" android:layout_height="22.0dip" android:layout_marginStart="-5.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" />

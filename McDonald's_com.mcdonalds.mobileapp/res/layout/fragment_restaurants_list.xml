@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:orientation="vertical" android:paddingTop="@dimen/tab_host_height" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListView android:id="@android:id/list" android:paddingLeft="@dimen/app_padding" android:paddingTop="@dimen/app_padding" android:paddingRight="@dimen/app_padding" android:paddingBottom="68.0dip" android:scrollbars="vertical" android:clipToPadding="false" android:layout_width="fill_parent" android:layout_height="fill_parent" android:listSelector="@null" android:cacheColorHint="#00000000" android:divider="@android:color/transparent" android:dividerHeight="10.0dip" />
+    <include android:id="@id/empty_view" layout="@layout/empty_favourites_layout" />
+</FrameLayout>

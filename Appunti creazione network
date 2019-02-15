@@ -1,0 +1,67 @@
+# Regole di creazione network, in base alle diverse istruzioni di branching:
+
+IF:
+	- Rewrite dell'istruzione, trasformandola in modo da portarla sempre in positivo
+	- Tabella di conversione tra if, tutto uguale e maggiore :
+
+
+Trovato --> Diventa -- Modifica
+if-eq       --         Uguale
+if-ne       if-eq      Inverto destinazione salto
+if-lt       if-ge      Inverto destinazione salto
+if-ge       --         Uguale
+if-gt       --         Uguale
+if-le       if-gt      Inverto destinazione salto
+if-eqz      --         Uguale
+if-nez      if-eqz     Inverto destinazione salto
+if-ltz      if-gez     Inverto destinazione salto
+if-gez      --         Uguale
+if-gtz      --         Uguale
+if-lez      if-gtz     Inverto destinazione salto
+
+
+
+if-eq vx,vy,target
+Jumps to target if vx == vy. vx and vy are integer values.
+
+if-ne vx,vy,target
+Jumps to target if vx != vy. vx and vy are integer values.
+
+if-lt vx,vy,target
+Jumps to target is vx < vy. vx and vy are integer values.
+
+if-ge vx, vy,target
+Jumps to target if vx >= vy. vx and vy are integer values.
+
+if-gt vx,vy,target
+Jumps to target if vx > vy. vx and vy are integer values.	
+
+if-le vx,vy,target
+Jumps to target if vx <= vy. vx and vy are integer values.	
+
+if-eqz vx,target
+Jumps to target if vx == 0. vx is an integer value.
+
+if-nez vx,target
+Checks vx and jumps if != vx
+
+if-ltz vx,target
+Checks vx and jumps if vx < 0
+
+if-gez vx,target
+Checks vx and jumps if vx >= 0
+
+if-gtz vx,target
+Checks vx and jumps if vx > 0
+
+if-lez vx,target
+Checks vx and jumps if vx <= 0
+
+
+
+
+
+Operazioni che provocano branching ancora non gestite:
+
+packed-switch
+sparse-switch

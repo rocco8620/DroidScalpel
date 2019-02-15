@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="GMA_lite.Card_stack_margin_side">2.0dip</dimen>
+    <dimen name="GMA_lite.Card_stack_margin_top">-2.0dip</dimen>
+    <dimen name="GMA_lite.RecyclerView_left_right_padding">2.0dip</dimen>
+    <dimen name="GMA_lite.RecyclerView_outer_padding">1.0dip</dimen>
+    <dimen name="GMA_lite.RecyclerView_up_down_padding">2.0dip</dimen>
+</resources>

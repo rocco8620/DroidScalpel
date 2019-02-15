@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout android:tag="layout/offer_item_badge_point_0" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="-5.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <mcdonalds.loyalty.view.BadgeView android:id="@id/badgeView" android:tag="binding_1" android:layout_width="0.0dip" android:layout_height="22.0dip" app:badgeIcon="@drawable/ic_coin_12" app:layout_constraintBottom_toBottomOf="@id/pointsText" app:layout_constraintEnd_toEndOf="@id/pointsText" app:layout_constraintStart_toStartOf="@id/pointsText" />
+    <mcdonalds.core.view.RuntimeUpdatableTextView android:textSize="12.0sp" android:textColor="@android:color/white" android:gravity="center_vertical" android:id="@id/pointsText" android:tag="binding_2" android:paddingBottom="1.0dip" android:layout_width="wrap_content" android:layout_height="22.0dip" android:paddingStart="22.0dip" android:paddingEnd="10.0dip" android:layout_marginStart="8.0dip" />
+</android.support.constraint.ConstraintLayout>

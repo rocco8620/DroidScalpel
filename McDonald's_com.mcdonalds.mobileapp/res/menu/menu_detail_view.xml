@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:icon="@drawable/ic_delete_white_24dp" android:id="@id/action_remove" android:visible="false" android:title="Remove" app:showAsAction="ifRoom" />
+    <item android:id="@id/action_tutorial" android:title="@string/gmal_offer_button_tutorial" app:showAsAction="never" />
+    <item android:id="@id/action_terms" android:title="@string/gmal_offer_button_terms_and_condition" app:showAsAction="never" />
+</menu>

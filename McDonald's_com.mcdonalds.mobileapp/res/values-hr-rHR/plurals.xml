@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="gmal_offer_detail_available_until">
+        <item quantity="zero">NULA dana do dostupnosti JEDAN dan do dostupnosti OSTALI dani do dostupnosti</item>
+    </plurals>
+    <plurals name="gmal_offer_list_available_until">
+        <item quantity="other">dane</item>
+        <item quantity="zero">dana</item>
+        <item quantity="one">dan</item>
+    </plurals>
+</resources>

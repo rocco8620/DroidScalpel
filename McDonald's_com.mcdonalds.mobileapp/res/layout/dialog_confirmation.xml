@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:background="@color/GMA_lite.Black_80_opacity" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_above="@id/offer_confirmation_button_holder">
+        <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true">
+            <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/icon_question" />
+            <mcdonalds.core.view.RuntimeUpdatableTextView android:textColor="@color/GMA_Lite.White" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" android:layout_marginTop="20.0dip" android:layout_marginRight="20.0dip" android:text="@string/gmal_offer_confirm_info_text_title" style="@style/GMA_Lite_TextAppearance.Title.Bold.Center" />
+            <mcdonalds.core.view.RuntimeUpdatableTextView android:textColor="@color/GMA_Lite.White" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="30.0dip" android:text="@string/gmal_offer_confirm_info_text_above" style="@style/GMA_Lite_TextAppearance.Body" />
+            <mcdonalds.core.view.RuntimeUpdatableTextView android:textColor="@color/GMA_Lite.White" android:id="@id/offer_confirmation_time_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" style="@style/GMA_Lite_TextAppearance.Title" />
+            <mcdonalds.core.view.RuntimeUpdatableTextView android:textColor="@color/GMA_Lite.White" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:text="@string/gmal_offer_confirm_info_text_below" style="@style/GMA_Lite_TextAppearance.Body" />
+        </LinearLayout>
+    </RelativeLayout>
+    <LinearLayout android:orientation="vertical" android:id="@id/offer_confirmation_button_holder" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="10.0dip" android:layout_alignParentBottom="true">
+        <mcdonalds.core.view.RuntimeUpdatableButtonView android:textColor="@color/GMA_Lite.White" android:id="@id/offer_confirmation_yes_button" android:layout_width="fill_parent" android:layout_height="50.0dip" android:text="@string/gmal_offer_confirm_button_yes" style="@style/GMA_Lite_ButtonAppearance" />
+        <mcdonalds.core.view.RuntimeUpdatableButtonView android:textColor="@color/GMA_Lite.White" android:id="@id/offer_confirmation_cancel_button" android:background="@drawable/grey_button_ripple" android:layout_width="fill_parent" android:layout_height="50.0dip" android:layout_marginTop="10.0dip" android:text="@string/gmal_offer_confirm_button_cancel" />
+    </LinearLayout>
+</RelativeLayout>

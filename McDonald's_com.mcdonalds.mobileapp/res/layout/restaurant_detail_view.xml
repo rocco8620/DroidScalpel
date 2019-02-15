@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@color/GMA_Lite.background" android:focusable="false" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <include layout="@layout/restaurant_basic_list_item" />
+        <mcdonalds.core.view.ColorImage android:layout_gravity="end" android:id="@id/favourite_image" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:src="@drawable/favorite_active_icon" android:scaleType="centerInside" android:layout_marginEnd="@dimen/app_padding" app:imageColor="?themeColor" />
+    </FrameLayout>
+    <View android:background="@color/GMA_Lite.shadow_border" android:layout_width="fill_parent" android:layout_height="1.0dip" />
+    <ScrollView android:id="@id/restaurant_details_scrollview" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <LinearLayout android:orientation="vertical" android:paddingBottom="@dimen/app_padding" android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <mcdonalds.core.view.RuntimeUpdatableButtonView android:id="@id/restaurant_detail_navigation_btn" android:layout_margin="10.0dip" android:text="@string/gmal_restaurant_detail_button_navigation" style="@style/GMA_Lite_ButtonAppearance" />
+            <LinearLayout android:orientation="vertical" android:id="@id/restaurant_remarks" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dip">
+                <mcdonalds.core.view.RuntimeUpdatableTextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/app_padding" android:layout_marginRight="@dimen/app_padding" android:layout_marginBottom="@dimen/app_padding" android:text="@string/gmal_restaurant_detail_info_text_note" android:textAllCaps="true" style="@style/GMA_Lite_TextAppearance.Body" />
+                <View android:background="@color/GMA_Lite.shadow_border" android:layout_width="fill_parent" android:layout_height="1.0dip" />
+                <RelativeLayout android:layout_gravity="center" android:orientation="horizontal" android:background="@color/GMA_lite.White_80_opacity" android:padding="@dimen/app_padding" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                    <mcdonalds.core.view.RuntimeUpdatableTextView android:id="@id/restaurant_remarks_text" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginEnd="@dimen/app_padding" android:layout_alignParentStart="true" style="@style/GMA_Lite_TextAppearance.Body" />
+                </RelativeLayout>
+                <View android:background="@color/GMA_Lite.shadow_border" android:layout_width="fill_parent" android:layout_height="1.0dip" />
+            </LinearLayout>
+            <LinearLayout android:orientation="vertical" android:id="@id/restaurant_opening_hours_root_holder" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <mcdonalds.core.view.RuntimeUpdatableTextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/app_padding" android:layout_marginTop="20.0dip" android:layout_marginRight="@dimen/app_padding" android:layout_marginBottom="@dimen/app_padding" android:text="@string/gmal_restaurant_detail_info_text_opening_hours" style="@style/GMA_Lite_TextAppearance.Body" />
+                <View android:background="@color/GMA_Lite.shadow_border" android:layout_width="fill_parent" android:layout_height="1.0dip" />
+                <LinearLayout android:orientation="vertical" android:id="@id/restaurant_opening_hours_holder" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+                <View android:background="@color/GMA_Lite.shadow_border" android:layout_width="fill_parent" android:layout_height="1.0dip" />
+            </LinearLayout>
+            <LinearLayout android:orientation="vertical" android:id="@id/restaurant_contact_holder" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <mcdonalds.core.view.RuntimeUpdatableTextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/app_padding" android:layout_marginTop="20.0dip" android:layout_marginRight="@dimen/app_padding" android:layout_marginBottom="@dimen/app_padding" android:text="@string/gmal_restaurant_detail_info_text_contact" style="@style/GMA_Lite_TextAppearance.Body" />
+                <View android:background="@color/GMA_Lite.shadow_border" android:layout_width="fill_parent" android:layout_height="1.0dip" />
+                <RelativeLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/restaurant_contact" android:background="@drawable/white_button_ripple" android:padding="@dimen/app_padding" android:paddingTop="@dimen/app_padding" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                    <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center_vertical" android:id="@id/restaurant_contact_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_marginEnd="@dimen/app_padding" android:layout_alignParentStart="true" style="@style/GMA_Lite_TextAppearance.Body" />
+                    <mcdonalds.core.view.ColorImage android:layout_gravity="end" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_action_navigation_neongreen" android:layout_centerVertical="true" android:layout_alignParentEnd="true" app:imageColor="?themeColor" />
+                </RelativeLayout>
+                <View android:background="@color/GMA_Lite.shadow_border" android:layout_width="fill_parent" android:layout_height="1.0dip" android:layout_marginStart="@dimen/app_padding" />
+                <RelativeLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/btn_restaurant_phone" android:background="@drawable/white_button_ripple" android:padding="@dimen/app_padding" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                    <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center_vertical" android:id="@id/restaurant_phone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_alignParentStart="true" style="@style/GMA_Lite_TextAppearance.Body" />
+                    <mcdonalds.core.view.ColorImage android:layout_gravity="end" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_action_phone_neongreen" android:layout_centerVertical="true" android:layout_alignParentEnd="true" app:imageColor="?themeColor" />
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout android:orientation="vertical" android:id="@id/restaurant_facilities_root_holder" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <View android:background="@color/GMA_Lite.shadow_border" android:layout_width="fill_parent" android:layout_height="1.0dip" />
+                <mcdonalds.core.view.RuntimeUpdatableTextView android:id="@id/restaurant_facilities_title" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/app_padding" android:layout_marginTop="20.0dip" android:layout_marginRight="@dimen/app_padding" android:text="@string/gmal_restaurant_detail_info_text_facilities" style="@style/GMA_Lite_TextAppearance.Body" />
+                <LinearLayout android:layout_gravity="center" android:orientation="vertical" android:id="@id/restaurant_facilities_holder" android:background="@color/GMA_Lite.White" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" />
+                <View android:background="@color/GMA_Lite.shadow_border" android:layout_width="fill_parent" android:layout_height="1.0dip" />
+            </LinearLayout>
+            <LinearLayout android:layout_gravity="center" android:orientation="vertical" android:id="@id/restaurant_activities" android:background="@color/GMA_lite.White_80_opacity" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="@dimen/app_padding">
+                <View android:background="@color/GMA_Lite.shadow_border" android:layout_width="fill_parent" android:layout_height="1.0dip" />
+                <mcdonalds.core.view.RuntimeUpdatableTextView android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/app_padding" android:layout_marginTop="20.0dip" android:layout_marginRight="@dimen/app_padding" android:layout_marginBottom="@dimen/app_padding" android:text="@string/gmal_restaurant_detail_info_text_activities" style="@style/GMA_Lite_TextAppearance.Header" />
+                <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center_vertical" android:id="@id/restaurant_day" android:padding="@dimen/app_padding" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_marginBottom="@dimen/app_padding" style="@style/GMA_Lite_TextAppearance.Body" />
+                <mcdonalds.core.view.RuntimeUpdatableTextView android:id="@id/restaurant_hours" android:padding="@dimen/app_padding" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_alignParentEnd="true" style="@style/GMA_Lite_TextAppearance.Body" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

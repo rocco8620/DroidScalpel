@@ -1,0 +1,91 @@
+.class Lcom/mikepenz/a/b/a$1;
+.super Ljava/lang/Object;
+.source "ClickListenerHelper.java"
+
+# interfaces
+.implements Landroid/view/View$OnClickListener;
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingMethod;
+    value = Lcom/mikepenz/a/b/a;->a(Landroid/support/v7/widget/RecyclerView$ViewHolder;)V
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x0
+    name = null
+.end annotation
+
+
+# instance fields
+.field final synthetic a:Landroid/support/v7/widget/RecyclerView$ViewHolder;
+
+.field final synthetic b:Lcom/mikepenz/a/c/c;
+
+.field final synthetic c:Lcom/mikepenz/a/b/a;
+
+
+# direct methods
+.method constructor <init>(Lcom/mikepenz/a/b/a;Landroid/support/v7/widget/RecyclerView$ViewHolder;Lcom/mikepenz/a/c/c;)V
+    .locals 0
+
+    .line 91
+    iput-object p1, p0, Lcom/mikepenz/a/b/a$1;->c:Lcom/mikepenz/a/b/a;
+
+    iput-object p2, p0, Lcom/mikepenz/a/b/a$1;->a:Landroid/support/v7/widget/RecyclerView$ViewHolder;
+
+    iput-object p3, p0, Lcom/mikepenz/a/b/a$1;->b:Lcom/mikepenz/a/c/c;
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public onClick(Landroid/view/View;)V
+    .locals 4
+
+    .line 94
+    iget-object v0, p0, Lcom/mikepenz/a/b/a$1;->c:Lcom/mikepenz/a/b/a;
+
+    invoke-static {v0}, Lcom/mikepenz/a/b/a;->a(Lcom/mikepenz/a/b/a;)Lcom/mikepenz/a/b;
+
+    move-result-object v0
+
+    iget-object v1, p0, Lcom/mikepenz/a/b/a$1;->a:Landroid/support/v7/widget/RecyclerView$ViewHolder;
+
+    invoke-virtual {v0, v1}, Lcom/mikepenz/a/b;->a(Landroid/support/v7/widget/RecyclerView$ViewHolder;)I
+
+    move-result v0
+
+    const/4 v1, -0x1
+
+    if-eq v0, v1, :cond_0
+
+    .line 98
+    iget-object v1, p0, Lcom/mikepenz/a/b/a$1;->b:Lcom/mikepenz/a/c/c;
+
+    check-cast v1, Lcom/mikepenz/a/c/a;
+
+    iget-object v2, p0, Lcom/mikepenz/a/b/a$1;->c:Lcom/mikepenz/a/b/a;
+
+    invoke-static {v2}, Lcom/mikepenz/a/b/a;->a(Lcom/mikepenz/a/b/a;)Lcom/mikepenz/a/b;
+
+    move-result-object v2
+
+    iget-object v3, p0, Lcom/mikepenz/a/b/a$1;->c:Lcom/mikepenz/a/b/a;
+
+    invoke-static {v3}, Lcom/mikepenz/a/b/a;->a(Lcom/mikepenz/a/b/a;)Lcom/mikepenz/a/b;
+
+    move-result-object v3
+
+    invoke-virtual {v3, v0}, Lcom/mikepenz/a/b;->b(I)Lcom/mikepenz/a/g;
+
+    move-result-object v3
+
+    invoke-virtual {v1, p1, v0, v2, v3}, Lcom/mikepenz/a/c/a;->a(Landroid/view/View;ILcom/mikepenz/a/b;Lcom/mikepenz/a/g;)V
+
+    :cond_0
+    return-void
+.end method

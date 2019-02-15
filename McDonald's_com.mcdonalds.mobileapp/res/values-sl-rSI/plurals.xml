@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="gmal_offer_detail_available_until">
+        <item quantity="zero">NIČ dni do takrat, ko bo na voljo EN dan do takrat, ko bo na voljo OTHER dni do takrat, ko bo na voljo</item>
+    </plurals>
+    <plurals name="gmal_offer_list_available_until">
+        <item quantity="other">dan</item>
+        <item quantity="zero">zero dni one dan other dan</item>
+        <item quantity="one">dan</item>
+        <item quantity="two">dneva</item>
+        <item quantity="few">dni</item>
+    </plurals>
+</resources>

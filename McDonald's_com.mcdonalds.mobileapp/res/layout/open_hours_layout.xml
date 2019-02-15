@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@id/btn_restaurant_hours" android:background="@drawable/button" android:padding="@dimen/app_padding" android:layout_width="fill_parent" android:layout_height="48.0dip" android:layout_marginBottom="20.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center_vertical" android:id="@id/open_hours_day" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="@string/gmal_restaurant_detail_today" style="@style/GMA_Lite_TextAppearance.Body" />
+    <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="end|center" android:layout_gravity="end" android:id="@id/restaurant_open_hours" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_alignParentEnd="true" style="@style/GMA_Lite_TextAppearance.Body" />
+</RelativeLayout>

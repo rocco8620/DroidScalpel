@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="gmal_offer_list_available_until">
+        <item quantity="other">dagen</item>
+        <item quantity="zero">dagen</item>
+        <item quantity="one">dag</item>
+    </plurals>
+</resources>

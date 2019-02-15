@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Modules>
+    <Module module="mcdonalds.loyaltycard.LoyaltyModule" name="loyalty_punch_card" />
+</Modules>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout android:fitsSystemWindows="true" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.design.widget.AppBarLayout android:id="@id/main_appbar_layout" android:fitsSystemWindows="true" android:layout_width="fill_parent" android:layout_height="wrap_content" app:layout_behavior="mcdonalds.core.util.FlingBehavior"
+      xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <android.support.design.widget.CollapsingToolbarLayout android:id="@id/main_collapsing_toolbar" android:fitsSystemWindows="true" android:layout_width="fill_parent" android:layout_height="fill_parent" android:minHeight="?actionBarSize" app:contentScrim="@color/GMA_Lite.background" app:layout_scrollFlags="enterAlways|enterAlwaysCollapsed|scroll" app:scrimVisibleHeightTrigger="82.0dip" app:statusBarScrim="@color/GMA_Lite.status_bar">
+            <LinearLayout android:orientation="vertical" android:id="@id/collapse_view_holder" android:background="@color/GMA_Lite.background" android:fitsSystemWindows="true" android:layout_width="fill_parent" android:layout_height="wrap_content" android:minHeight="@dimen/GMA_Lite.expand_image_min_height" app:layout_collapseMode="none">
+                <ImageView android:id="@id/collapsing_image" android:layout_width="fill_parent" android:layout_height="wrap_content" android:scaleType="fitCenter" android:adjustViewBounds="true" />
+                <mcdonalds.core.view.RuntimeUpdatableTextView android:textColor="@color/GMA_Lite.primaly_text_brand" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/collapsing_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dip" android:layout_marginBottom="10.0dip" style="@style/GMA_Lite_TextAppearance.Body" />
+            </LinearLayout>
+            <android.support.v7.widget.Toolbar android:theme="@style/ThemeOverlay.AppCompat.ActionBar" android:id="@id/mcdonalds_toolbar" android:layout_width="fill_parent" android:layout_height="?actionBarSize" app:layout_collapseMode="pin" app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center" android:id="@id/collapse_toolbar_title" android:fitsSystemWindows="false" android:layout_width="wrap_content" android:layout_height="?actionBarSize" android:alpha="0.0" android:layout_marginStart="72.0dip" app:layout_collapseMode="pin" style="@style/GMA_Lite_TextAppearance.Title.Bold" />
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+</android.support.design.widget.CoordinatorLayout>

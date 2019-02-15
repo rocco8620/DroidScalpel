@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout android:fitsSystemWindows="true" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.design.widget.AppBarLayout android:id="@id/main_appbar_layout" android:fitsSystemWindows="true" android:layout_width="fill_parent" android:layout_height="wrap_content" app:layout_behavior="mcdonalds.core.util.FlingBehavior">
+        <android.support.design.widget.CollapsingToolbarLayout android:id="@id/main_collapsing_toolbar" android:fitsSystemWindows="true" android:layout_width="fill_parent" android:layout_height="wrap_content" app:contentScrim="@color/GMA_Lite.background" app:layout_scrollFlags="enterAlways|enterAlwaysCollapsed|scroll" app:scrimVisibleHeightTrigger="82.0dip" app:statusBarScrim="@color/GMA_Lite.status_bar">
+            <RelativeLayout android:orientation="vertical" android:id="@id/collapse_view_holder" android:fitsSystemWindows="true" android:layout_width="fill_parent" android:layout_height="wrap_content" android:minHeight="@dimen/GMA_Lite.expand_image_min_height" app:layout_collapseMode="none">
+                <android.support.constraint.ConstraintLayout android:id="@id/collapsing_image_holder" android:clipChildren="true" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_centerHorizontal="true">
+                    <mcdonalds.core.view.TwoLayeredAnimatedImageView android:id="@id/two_layered_animated_image_view" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+                </android.support.constraint.ConstraintLayout>
+                <ImageView android:id="@id/collapsing_gradient" android:background="@android:color/transparent" android:layout_width="fill_parent" android:layout_height="20.0dip" android:layout_alignBottom="@id/collapsing_image_holder" />
+                <mcdonalds.core.view.RuntimeUpdatableTextView android:id="@id/collapsing_title" android:layout_marginLeft="20.0dip" android:layout_marginRight="20.0dip" android:layout_below="@id/collapsing_image_holder" style="@style/GMA_Lite_TextAppearance.Title.Bold.Center" />
+                <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center" android:id="@id/collapsing_body" android:layout_marginLeft="20.0dip" android:layout_marginTop="5.0dip" android:layout_marginRight="20.0dip" android:layout_below="@id/collapsing_title" android:layout_centerHorizontal="true" style="@style/GMA_Lite_TextAppearance.Body" />
+                <mcdonalds.core.view.RuntimeUpdatableTextView android:textSize="@dimen/GMA_Lite.Small_font_size" android:id="@id/collapsing_hero_link" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:text="@string/gmal_news_read_more" android:layout_below="@id/collapsing_body" android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+            <ImageView android:id="@id/collapsing_gradient_top" android:background="@drawable/linear_gradient" android:fitsSystemWindows="true" android:layout_width="fill_parent" android:layout_height="80.0dip" app:layout_collapseMode="pin" />
+            <android.support.v7.widget.Toolbar android:theme="@style/ThemeOverlay.AppCompat.ActionBar" android:id="@id/mcdonalds_toolbar" android:layout_width="fill_parent" android:layout_height="?actionBarSize" app:layout_collapseMode="pin" app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center" android:id="@id/collapse_toolbar_title" android:fitsSystemWindows="false" android:layout_width="wrap_content" android:layout_height="?actionBarSize" android:alpha="0.0" android:layout_marginStart="72.0dip" app:layout_collapseMode="pin" style="@style/GMA_Lite_TextAppearance.Title.Bold" />
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+    <android.support.v7.widget.RecyclerView android:id="@id/stagged_recycler_view" android:background="@color/GMA_Lite.background" android:clipChildren="false" android:layout_width="fill_parent" android:layout_height="fill_parent" android:overScrollMode="never" android:requiresFadingEdge="none" app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    <RelativeLayout android:id="@id/news_loading_holder" android:background="@color/GMA_Lite.White" android:fitsSystemWindows="true" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <View android:id="@id/circle_background" android:layout_width="70.0dip" android:layout_height="70.0dip" android:layout_centerInParent="true" />
+        <com.github.rahatarmanahmed.cpv.CircularProgressView android:id="@id/circle_progress" android:layout_width="70.0dip" android:layout_height="70.0dip" android:layout_centerInParent="true" app:cpv_animAutostart="true" app:cpv_indeterminate="true" />
+        <io.codetail.widget.RevealFrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+            <View android:id="@id/reveal_background" android:background="?themeColor" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+        </io.codetail.widget.RevealFrameLayout>
+        <ImageView android:id="@id/mcdonalds_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/icon_mcd_logo_splash" android:layout_centerInParent="true" />
+    </RelativeLayout>
+    <include layout="@layout/layout_error_view" />
+    <ImageButton android:id="@id/news_icon_menu" android:background="@null" android:padding="16.0dip" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/icon_app_menu" />
+</android.support.design.widget.CoordinatorLayout>

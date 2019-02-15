@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout android:tag="layout/layout_country_language_selector_0" android:background="@color/GMA_Lite.White" android:layout_width="fill_parent" android:layout_height="fill_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <android.support.design.widget.AppBarLayout android:tag="binding_1" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <include layout="@layout/layout_toolbar" />
+    </android.support.design.widget.AppBarLayout>
+    <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center" android:id="@id/empty_text_view" android:paddingTop="20.0dip" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="?actionBarSize" android:text="@string/gmal_market_picker_search_no_result" />
+    <android.support.v7.widget.RecyclerView android:id="@id/recyclerview" android:paddingTop="8.0dip" android:paddingBottom="8.0dip" android:layout_width="fill_parent" android:layout_height="fill_parent" app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+</android.support.design.widget.CoordinatorLayout>

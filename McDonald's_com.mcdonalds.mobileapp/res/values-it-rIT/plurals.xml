@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="gmal_offer_detail_available_until">
+        <item quantity="other">giorni</item>
+        <item quantity="zero">giorni. Ancora qualche minuto di pazienza.</item>
+        <item quantity="one">giorno</item>
+    </plurals>
+    <plurals name="gmal_offer_list_available_until">
+        <item quantity="other">giorni</item>
+        <item quantity="zero">giorni</item>
+        <item quantity="one">giorno</item>
+    </plurals>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:gravity="center_vertical" android:background="@drawable/error_image_background" android:layout_width="wrap_content" android:layout_height="60.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/error_icon_image" android:layout_width="50.0dip" android:layout_height="50.0dip" android:src="@drawable/general_error" android:adjustViewBounds="true" android:layout_centerVertical="true" android:layout_marginStart="5.0dip" />
+    <RelativeLayout android:id="@id/error_message_text_holder" android:layout_width="fill_parent" android:layout_height="60.0dip" android:layout_marginLeft="10.0dip" android:layout_marginRight="10.0dip" android:layout_toStartOf="@id/error_splitter" android:layout_toEndOf="@id/error_icon_image">
+        <mcdonalds.core.view.RuntimeUpdatableTextView android:textColor="@color/GMA_Lite.White" android:gravity="center" android:id="@id/error_message_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/gmal_error_offline_title" android:layout_centerInParent="true" style="@style/GMA_Lite_TextAppearance.Body" />
+    </RelativeLayout>
+    <View android:id="@id/error_splitter" android:background="@color/GMA_Lite.secondary_button_color" android:layout_width="2.0dip" android:layout_height="40.0dip" android:layout_marginTop="10.0dip" android:layout_toStartOf="@id/error_retry_button" />
+    <RelativeLayout android:id="@id/error_retry_button" android:layout_width="60.0dip" android:layout_height="60.0dip" android:layout_alignParentEnd="true">
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_action_refresh" android:adjustViewBounds="true" android:layout_centerInParent="true" />
+    </RelativeLayout>
+</RelativeLayout>

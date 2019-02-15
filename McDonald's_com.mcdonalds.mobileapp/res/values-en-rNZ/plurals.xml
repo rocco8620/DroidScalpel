@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="gmal_offer_detail_available_until">
+        <item quantity="other">days until available</item>
+        <item quantity="zero">day until available</item>
+        <item quantity="one">day until available</item>
+    </plurals>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="gmal_offer_detail_available_until">
+        <item quantity="other">ngày nữa sẽ hiệu lực</item>
+        <item quantity="zero">ngày nữa sẽ hiệu lực</item>
+    </plurals>
+    <plurals name="gmal_offer_list_available_until">
+        <item quantity="other">ngày</item>
+        <item quantity="zero">ngày</item>
+    </plurals>
+</resources>

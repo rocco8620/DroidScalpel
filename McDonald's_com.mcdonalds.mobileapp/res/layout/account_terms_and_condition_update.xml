@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical" android:background="@color/GMA_Lite.White" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ScrollView android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <ImageView android:id="@id/terms_image" android:layout_width="fill_parent" android:layout_height="wrap_content" android:src="@drawable/tnc_renewed" />
+            <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center" android:id="@id/terms_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dip" android:layout_marginRight="10.0dip" android:text="@string/gmal_account_tnc_update_info_text_title" style="@style/GMA_Lite_TextAppearance.Header" />
+            <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center" android:id="@id/terms_body" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0dip" android:layout_marginTop="5.0dip" android:layout_marginRight="16.0dip" android:text="@string/gmal_account_terms_update_description" style="@style/GMA_Lite_TextAppearance.Body" />
+            <LinearLayout android:orientation="vertical" android:id="@id/account_tnc_holder" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="20.0dip" />
+            <mcdonalds.core.view.RuntimeUpdatableButtonView android:id="@id/account_tnc_accept_btn" android:layout_margin="10.0dip" android:text="@string/gmal_account_tnc_update_button_accept" style="@style/GMA_Lite_ButtonAppearance" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="gmal_offer_detail_available_until">
+        <item quantity="other">dienas līdz pieejamībai</item>
+        <item quantity="zero">diena līdz pieejamībai</item>
+        <item quantity="one">diena līdz pieejamībai</item>
+    </plurals>
+    <plurals name="gmal_offer_list_available_until">
+        <item quantity="other">dienas</item>
+        <item quantity="zero">diena</item>
+        <item quantity="one">diena</item>
+    </plurals>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:id="@id/qr_code_view_container" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:layout_width="fill_parent" android:layout_height="220.0dip" android:layout_marginLeft="10.0dip" android:layout_marginTop="10.0dip" android:layout_marginRight="10.0dip">
+        <ProgressBar android:id="@id/qr_code_loader" android:layout_width="wrap_content" android:layout_height="wrap_content" android:indeterminate="true" android:indeterminateOnly="true" android:indeterminateDrawable="@drawable/progress_loader" android:indeterminateBehavior="repeat" android:layout_centerInParent="true" />
+        <android.support.v7.widget.CardView android:orientation="vertical" android:id="@id/qr_code_holder" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true" card_view:cardBackgroundColor="@color/GMA_Lite.White" card_view:cardCornerRadius="6.0dip" card_view:cardElevation="@dimen/GMA_lite.QR_shadow_elevation" card_view:cardPreventCornerOverlap="false" card_view:cardUseCompatPadding="true" xmlns:card_view="http://schemas.android.com/apk/res-auto">
+            <mcdonalds.offers.qrcode.QRCodeView android:id="@id/qr_image_view" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </android.support.v7.widget.CardView>
+        <mcdonalds.core.view.RuntimeUpdatableTextView android:textSize="80.0dip" android:textColor="@color/GMA_Lite.primaly_text_brand" android:gravity="center" android:id="@id/qr_code_textview" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_centerInParent="true" />
+    </RelativeLayout>
+    <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center" android:id="@id/qr_code_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:text="@string/gmal_offer_qr_code_info_text_qr_title" style="@style/GMA_Lite_TextAppearance.Header" />
+    <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center" android:id="@id/qr_code_body" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" android:layout_marginTop="10.0dip" android:layout_marginRight="20.0dip" android:layout_marginBottom="5.0dip" android:text="@string/gmal_offer_qr_code_info_text_qr_body" style="@style/GMA_Lite_TextAppearance.Body" />
+</LinearLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/offer_reveal_animation" android:visibility="gone" android:layout_width="300.0dip" android:layout_height="300.0dip" android:layout_marginTop="10.0dip" android:src="@drawable/circle_reveal" android:layout_centerHorizontal="true" />
+    <include layout="@layout/layout_tabhost" />
+    <include android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_above="@id/offer_timer_indicate_holder" android:layout_below="@android:id/tabhost" layout="@layout/layout_qr_code" />
+    <include layout="@layout/layout_timer_action_sheet" />
+    <include layout="@layout/layout_error_view" />
+</RelativeLayout>

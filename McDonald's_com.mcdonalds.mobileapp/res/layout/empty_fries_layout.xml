@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_gravity="center_horizontal" android:id="@id/empty_fries_holder" android:background="@color/GMA_Lite.shadow_border" android:layout_width="250.0dip" android:layout_height="250.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/empty_fries_hand" android:paddingTop="10.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/empty_fries_hand" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+    <ImageView android:id="@id/empty_fries_outer_circle" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+</RelativeLayout>

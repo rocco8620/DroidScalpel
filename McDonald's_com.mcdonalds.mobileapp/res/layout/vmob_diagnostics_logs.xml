@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <Spinner android:id="@id/spinner_log_level" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <Button android:id="@id/bt_clear_log" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/vmob_diagnostics_log_clear_button" />
+    </LinearLayout>
+    <ListView android:id="@android:id/list" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginLeft="5.0dip" android:layout_marginRight="5.0dip" android:transcriptMode="normal" android:fastScrollEnabled="true" android:smoothScrollbar="true" />
+    <TextView android:textStyle="italic" android:layout_gravity="center_horizontal" android:id="@android:id/empty" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/vmob_diagnostics_log_empty" android:textIsSelectable="true" />
+</LinearLayout>

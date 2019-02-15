@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false">
+        <shape>
+            <solid android:color="@color/GMA_Lite.second_text_brand" />
+            <corners android:radius="@dimen/GMA_lite.Button_corner_radius" />
+        </shape>
+    </item>
+    <item android:state_enabled="true" android:state_pressed="false">
+        <shape>
+            <solid android:color="@color/GMA_Lite.primal.red" />
+            <corners android:radius="@dimen/GMA_lite.Button_corner_radius" />
+        </shape>
+    </item>
+    <item android:state_enabled="true" android:state_pressed="true">
+        <shape>
+            <solid android:color="@color/GMA_Lite.primal.red.dark" />
+            <corners android:radius="@dimen/GMA_lite.Button_corner_radius" />
+        </shape>
+    </item>
+</selector>

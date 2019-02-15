@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="gmal_offer_detail_available_until">
+        <item quantity="other">gün kaldı</item>
+        <item quantity="zero">gün kaldı</item>
+        <item quantity="one">gün kaldı</item>
+    </plurals>
+    <plurals name="gmal_offer_list_available_until">
+        <item quantity="other">gün</item>
+        <item quantity="zero">gün</item>
+        <item quantity="one">gün</item>
+    </plurals>
+</resources>

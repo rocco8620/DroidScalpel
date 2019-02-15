@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="gmal_offer_detail_available_until">
+        <item quantity="other">päivää kunnes saatavilla</item>
+        <item quantity="zero">päivää kunnes saatavilla</item>
+        <item quantity="one">päivä kunnes saatavilla</item>
+    </plurals>
+    <plurals name="gmal_offer_list_available_until">
+        <item quantity="other">päivää</item>
+        <item quantity="zero">päivää</item>
+        <item quantity="one">päivä</item>
+    </plurals>
+</resources>

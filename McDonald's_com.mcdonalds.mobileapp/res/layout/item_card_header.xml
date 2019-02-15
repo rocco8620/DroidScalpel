@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical" android:paddingBottom="10.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:id="@id/news_hero_image_holder" android:clipChildren="true" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_centerHorizontal="true">
+        <mcdonalds.core.view.TwoLayeredAnimatedImageView android:id="@id/two_layered_animated_image_view" android:background="@color/GMA_Lite.background" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    </FrameLayout>
+    <ImageView android:id="@id/news_hero_gradiant" android:background="@android:color/transparent" android:layout_width="fill_parent" android:layout_height="20.0dip" android:layout_alignBottom="@id/news_hero_image_holder" />
+    <mcdonalds.core.view.RuntimeUpdatableTextView android:id="@id/news_hero_title" android:layout_marginLeft="20.0dip" android:layout_marginRight="20.0dip" android:layout_below="@id/news_hero_image_holder" style="@style/GMA_Lite_TextAppearance.Title.Bold.Center" />
+    <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center" android:id="@id/news_hero_body" android:layout_marginLeft="20.0dip" android:layout_marginTop="5.0dip" android:layout_marginRight="20.0dip" android:layout_below="@id/news_hero_title" android:layout_centerHorizontal="true" style="@style/GMA_Lite_TextAppearance.Body" />
+    <mcdonalds.core.view.RuntimeUpdatableTextView android:textSize="@dimen/GMA_Lite.Small_font_size" android:id="@id/news_hero_link" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:text="@string/gmal_news_read_more" android:layout_below="@id/news_hero_body" android:layout_centerHorizontal="true" />
+</RelativeLayout>

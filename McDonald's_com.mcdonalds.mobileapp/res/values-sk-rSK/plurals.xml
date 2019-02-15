@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="gmal_offer_detail_available_until">
+        <item quantity="other">dní, než bude k dispozíci</item>
+        <item quantity="zero">dní, než bude k dispozíci</item>
+        <item quantity="one">deň, než bude k dispozíci</item>
+        <item quantity="few">dni, než bude k dispozíci</item>
+    </plurals>
+    <plurals name="gmal_offer_list_available_until">
+        <item quantity="other">dní</item>
+        <item quantity="zero">dní</item>
+        <item quantity="one">deň</item>
+        <item quantity="few">dni</item>
+    </plurals>
+</resources>

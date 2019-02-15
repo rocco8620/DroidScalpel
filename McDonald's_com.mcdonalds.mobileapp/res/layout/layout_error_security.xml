@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/security_error_holder" android:tag="layout/layout_error_security_0" android:background="@color/GMA_Lite.White" android:visibility="visible" android:clickable="true" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:padding="10.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:layout_centerHorizontal="true">
+        <ImageView android:id="@id/security_error_image" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/general_error" android:layout_centerHorizontal="true" />
+        <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center" android:id="@id/security_error_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:text="@string/gmal_error_general_title" android:layout_below="@id/security_error_image" android:layout_centerHorizontal="true" style="@style/GMA_Lite_TextAppearance.Header" />
+        <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center_horizontal" android:id="@id/security_error_body" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:text="@string/gmal_error_security_body" android:layout_below="@id/security_error_title" style="@style/GMA_Lite_TextAppearance.Body" />
+    </RelativeLayout>
+</RelativeLayout>

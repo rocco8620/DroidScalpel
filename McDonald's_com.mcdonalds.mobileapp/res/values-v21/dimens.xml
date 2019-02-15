@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="GMA_lite.Card_stack_margin_side">5.0dip</dimen>
+    <dimen name="GMA_lite.Card_stack_margin_top">-5.0dip</dimen>
+    <dimen name="GMA_lite.RecyclerView_left_right_padding">5.0dip</dimen>
+    <dimen name="GMA_lite.RecyclerView_outer_padding">5.0dip</dimen>
+    <dimen name="GMA_lite.RecyclerView_up_down_padding">5.0dip</dimen>
+    <dimen name="GMA_lite.offers_bottom_card_elevation">4.0dip</dimen>
+    <dimen name="notification_content_margin_start">0.0dip</dimen>
+    <dimen name="notification_main_column_padding_top">0.0dip</dimen>
+    <dimen name="notification_media_narrow_margin">12.0dip</dimen>
+    <dimen name="tool_bar_top_padding">25.0dip</dimen>
+</resources>

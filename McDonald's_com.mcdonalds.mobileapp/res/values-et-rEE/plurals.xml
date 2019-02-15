@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="gmal_offer_detail_available_until">
+        <item quantity="zero">zero päeva kuni saab uuesti kasutada one päeva kuni saab uuesti kasutada other päeva kuni saab uuesti kasutada</item>
+    </plurals>
+    <plurals name="gmal_offer_list_available_until">
+        <item quantity="zero">zero päeva one päeva other päeva</item>
+    </plurals>
+</resources>

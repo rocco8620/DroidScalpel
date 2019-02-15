@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:background="@color/GMA_Lite.White" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ScrollView android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_centerVertical="true">
+        <LinearLayout android:orientation="vertical" android:id="@id/tutorial_text_holder" android:padding="20.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <ImageView android:id="@id/tutorial_image" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="30.0dip" android:layout_marginTop="10.0dip" android:layout_marginRight="30.0dip" android:scaleType="fitCenter" android:adjustViewBounds="true" />
+            <com.airbnb.lottie.LottieAnimationView android:id="@id/tutorial_lottie_animation" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="30.0dip" android:layout_marginTop="10.0dip" android:layout_marginRight="30.0dip" android:scaleType="fitCenter" android:adjustViewBounds="true" app:lottie_autoPlay="false" app:lottie_loop="true" />
+            <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center" android:id="@id/tutorial_title" android:layout_width="fill_parent" android:layout_height="wrap_content" style="@style/GMA_Lite_TextAppearance.Header" />
+            <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center" android:id="@id/tutorial_body" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" style="@style/GMA_Lite_TextAppearance.Body" />
+        </LinearLayout>
+    </ScrollView>
+    <mcdonalds.core.view.RuntimeUpdatableButtonView android:id="@id/tutorial_button" android:layout_marginTop="16.0dip" android:layout_marginBottom="16.0dip" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" style="@style/GMA_Lite_ButtonAppearance.Raised" />
+</RelativeLayout>

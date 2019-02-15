@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:id="@id/main_content" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <WebView android:id="@id/main_webview" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    </FrameLayout>
+    <FrameLayout android:id="@id/target_view" android:background="@android:color/black" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <mcdonalds.core.util.LoadingProgressBar android:id="@id/progress_loader" android:visibility="invisible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="10.0dip" android:indeterminate="true" android:indeterminateOnly="true" android:indeterminateDrawable="@drawable/progress_corner_loader" android:indeterminateBehavior="repeat" android:minWidth="50.0dip" android:minHeight="50.0dip" />
+    <android.support.v7.widget.AppCompatImageView android:id="@id/FullScreenCloseButton" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="10.0dip" android:src="@drawable/close_btn" />
+</RelativeLayout>

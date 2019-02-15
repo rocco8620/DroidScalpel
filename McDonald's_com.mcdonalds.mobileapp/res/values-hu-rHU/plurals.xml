@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="gmal_offer_detail_available_until">
+        <item quantity="other">napig elérhető</item>
+        <item quantity="zero">nap múlva elérhető</item>
+        <item quantity="one">napig elérhető</item>
+    </plurals>
+    <plurals name="gmal_offer_list_available_until">
+        <item quantity="other">napok</item>
+        <item quantity="zero">nap</item>
+        <item quantity="one">nap</item>
+    </plurals>
+</resources>

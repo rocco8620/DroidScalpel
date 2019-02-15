@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_gravity="bottom" android:orientation="vertical" android:id="@id/footer_holder" android:background="@android:color/transparent" android:visibility="gone" android:fitsSystemWindows="false" android:clickable="true" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:background="@drawable/shadow_divider" android:layout_width="fill_parent" android:layout_height="8.0dip" />
+    <RelativeLayout android:background="@color/GMA_Lite.White" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <mcdonalds.core.view.RuntimeUpdatableTextView android:id="@id/footer_login_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" android:layout_marginTop="10.0dip" android:layout_marginRight="20.0dip" android:text="@string/gmal_footer_login_info_text_title" android:layout_centerHorizontal="true" style="@style/GMA_Lite_TextAppearance.Header" />
+        <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center" android:id="@id/footer_login_body" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" android:layout_marginTop="5.0dip" android:layout_marginRight="20.0dip" android:text="@string/gmal_footer_login_info_text_body" android:layout_below="@id/footer_login_title" android:layout_centerHorizontal="true" style="@style/GMA_Lite_TextAppearance.Body" />
+        <RelativeLayout android:padding="10.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/footer_login_body">
+            <mcdonalds.core.view.RuntimeUpdatableButtonView android:textColor="@color/GMA_Lite.White" android:id="@id/footer_button" android:layout_width="fill_parent" android:layout_height="50.0dip" android:text="@string/gmal_offer_button_redeem" style="@style/GMA_Lite_ButtonAppearance" />
+            <mcdonalds.core.view.ExpireClock android:id="@id/footer_expire_clock" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_marginStart="20.0dip" style="@style/GMA_Lite_ExpireClock" />
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="gmal_offer_detail_available_until">
+        <item quantity="other">дня/ дзён да актывацыі купона</item>
+        <item quantity="zero">дзён да актывацыі купона</item>
+        <item quantity="one">дзень да актывацыі купона</item>
+        <item quantity="few">дня/ дзён да актывацыі купона</item>
+        <item quantity="many">дня/ дзён да актывацыі купона</item>
+    </plurals>
+    <plurals name="gmal_offer_list_available_until">
+        <item quantity="other">дня/дзён</item>
+        <item quantity="zero">Дзён</item>
+        <item quantity="one">"Дзень "</item>
+        <item quantity="few">дня/дзён</item>
+        <item quantity="many">дня/дзён</item>
+    </plurals>
+</resources>

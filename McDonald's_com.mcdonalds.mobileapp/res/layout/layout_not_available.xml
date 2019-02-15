@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout android:tag="layout/layout_not_available_0" android:background="@color/GMA_Lite.White" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <android.support.design.widget.AppBarLayout android:tag="binding_1" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <include layout="@layout/layout_toolbar" />
+    </android.support.design.widget.AppBarLayout>
+    <RelativeLayout android:orientation="vertical" android:background="@color/GMA_Lite.White" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginTop="?actionBarSize">
+        <LinearLayout android:orientation="vertical" android:id="@id/not_available_holder" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="10.0dip">
+            <ImageView android:id="@id/not_available_image" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="40.0dip" android:layout_marginRight="40.0dip" android:src="@drawable/not_available_view" android:scaleType="fitCenter" android:adjustViewBounds="true" />
+            <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/not_available_title" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dip" android:text="@string/gmal_market_picker_not_available_info_text_title" android:textAlignment="center" style="@style/GMA_Lite_TextAppearance.Header" />
+            <mcdonalds.core.view.RuntimeUpdatableTextView android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/not_available_body" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dip" android:layout_marginBottom="8.0dip" android:text="@string/gmal_market_picker_not_available_info_text_body" android:textAlignment="center" style="@style/GMA_Lite_TextAppearance.Body" />
+        </LinearLayout>
+        <mcdonalds.core.view.RuntimeUpdatableButtonView android:id="@id/not_available_button" android:layout_marginTop="12.0dip" android:layout_marginBottom="24.0dip" android:text="@string/gmal_market_picker_not_available_button" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" android:layout_marginStart="12.0dip" android:layout_marginEnd="12.0dip" style="@style/GMA_Lite_ButtonAppearance.Raised" />
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

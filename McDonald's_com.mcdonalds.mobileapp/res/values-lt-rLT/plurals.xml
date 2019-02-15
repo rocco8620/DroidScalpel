@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="gmal_offer_detail_available_until">
+        <item quantity="zero">diena, kol bus galima dienų, kol bus galima diena, kol bus galima</item>
+    </plurals>
+    <plurals name="gmal_offer_list_available_until">
+        <item quantity="zero">diena dienos diena</item>
+    </plurals>
+</resources>

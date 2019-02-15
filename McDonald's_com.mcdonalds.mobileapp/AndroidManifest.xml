@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?><manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.mcdonalds.mobileapp">
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+    <uses-permission android:name="android.permission.SET_ANIMATION_SCALE"/>
+    <permission android:name="com.mcdonalds.mobileapp.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
+    <uses-permission android:name="com.mcdonalds.mobileapp.permission.C2D_MESSAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="com.android.vending.CHECK_LICENSE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-feature android:glEsVersion="0x00020000" android:required="true"/>
+    <meta-data android:name="android.support.VERSION" android:value="25.3.1"/>
+    <uses-permission android:name="android.permission.BLUETOOTH" android:required="false"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:required="false"/>
+    <application android:allowBackup="false" android:configChanges="locale" android:icon="@mipmap/ic_launcher" android:label="@string/app_name" android:largeHeap="true" android:name="mcdonalds.app.AppApplication" android:networkSecurityConfig="@xml/network_security_config" android:resizeableActivity="true" android:supportsRtl="true" android:theme="@style/GMALiteTheme">
+        <activity android:name="mcdonalds.core.MainActivity" android:screenOrientation="portrait" android:theme="@style/GMALiteTheme.Drawer" android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="gmalite"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
+            <meta-data android:name="android.app.default_searchable" android:value="mcdonalds.basic.McdonaldsHomeActivity"/>
+            <meta-data android:name="android.app.searchable" android:resource="@xml/restaurant_searchable"/>
+        </activity>
+        <activity android:name="mcdonalds.loyaltycard.detail.LoyaltyCardDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name="mcdonalds.loyaltycard.reward.RewardSelectionActivity" android:screenOrientation="portrait"/>
+        <activity android:name="mcdonalds.offers.detail.OfferDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name="mcdonalds.offers.qrcode.QRCodeActivity" android:screenOrientation="portrait"/>
+        <activity android:name="mcdonalds.offers.detail.TermsAndConditionActivity" android:screenOrientation="portrait"/>
+        <activity android:name="mcdonalds.offers.detail.OfferCodeActivity" android:screenOrientation="portrait"/>
+        <activity android:launchMode="singleTask" android:name="mcdonalds.account.login.LoginActivity" android:screenOrientation="portrait"/>
+        <activity android:name="mcdonalds.account.register.RegisterActivity" android:screenOrientation="portrait"/>
+        <activity android:name="mcdonalds.account.setting.SettingActivity" android:screenOrientation="portrait"/>
+        <activity android:name="mcdonalds.account.login.ForgotPasswordActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan"/>
+        <activity android:name="mcdonalds.account.tnc.TermsAndConditionUpdateActivity" android:screenOrientation="portrait"/>
+        <activity android:name="mcdonalds.account.login.MigrationActivity" android:screenOrientation="portrait"/>
+        <activity android:name="mcdonalds.account.setting.UpdateActivity" android:screenOrientation="portrait"/>
+        <activity android:name="mcdonalds.marketpicker.MarketPickerActivity" android:screenOrientation="portrait" android:theme="@style/GMALiteTheme.Dark"/>
+        <activity android:name="mcdonalds.marketpicker.CountryLanguageSelectingActivity" android:screenOrientation="portrait" android:theme="@style/GMALiteTheme.Dark"/>
+        <activity android:name="mcdonalds.marketpicker.NotAvailableActivity" android:screenOrientation="portrait" android:theme="@style/GMALiteTheme.Dark"/>
+        <activity android:name="mcdonalds.tutorial.TutorialActivity" android:screenOrientation="portrait"/>
+        <activity android:name="mcdonalds.restaurant.activity.RestaurantDetailsActivity" android:screenOrientation="portrait">
+            <meta-data android:name="android.app.searchable" android:resource="@xml/restaurant_searchable"/>
+        </activity>
+        <activity android:name="mcdonalds.restaurant.activity.RestaurantHoursActivity" android:screenOrientation="portrait"/>
+        <activity android:name="mcdonalds.restaurant.search.SearchActivity" android:screenOrientation="portrait"/>
+        <service android:name="mcdonalds.restaurant.location.LocationService"/>
+        <service android:name="mcdonalds.restaurant.network.RestaurantService"/>
+        <service android:name="mcdonalds.restaurant.network.SearchService"/>
+        <provider android:authorities="@string/restaurant_suggestion_provider_authority" android:enabled="true" android:name="mcdonalds.restaurant.search.RestaurantsSuggestionProvider"/>
+        <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="@string/google_browser_api_key"/>
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:name="mcdonalds.smartwebview.SmartWebActivity" android:screenOrientation="portrait"/>
+        <activity android:name="mcdonalds.loyalty.view.OfferDetailsActivity" android:screenOrientation="portrait"/>
+        <activity android:name="mcdonalds.loyalty.view.PointsOverviewActivity" android:screenOrientation="portrait"/>
+        <activity android:name="mcdonalds.loyalty.view.LevelsOverviewActivity" android:screenOrientation="portrait"/>
+        <activity android:name="mcdonalds.loyalty.view.TermsActivity" android:screenOrientation="portrait"/>
+        <activity android:name="mcdonalds.loyalty.view.OfferNumericCodeActivity" android:screenOrientation="portrait"/>
+        <activity android:name="mcdonalds.loyalty.view.TransactionHistoryActivity" android:screenOrientation="portrait"/>
+        <activity android:name="mcdonalds.core.SplashActivity" android:screenOrientation="portrait" android:theme="@style/GMALiteTheme.SplashScreen"/>
+        <activity-alias android:enabled="false" android:icon="@mipmap/mcd_red" android:name="mcdonalds.core.SplashActivity.Red" android:targetActivity="mcdonalds.core.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity-alias>
+        <activity-alias android:enabled="true" android:icon="@mipmap/ic_launcher" android:name="mcdonalds.core.SplashActivity.Green" android:targetActivity="mcdonalds.core.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity-alias>
+        <activity-alias android:enabled="false" android:icon="@mipmap/mcd_black" android:name="mcdonalds.core.SplashActivity.Black" android:targetActivity="mcdonalds.core.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity-alias>
+        <activity-alias android:enabled="false" android:icon="@mipmap/mcd_white" android:name="mcdonalds.core.SplashActivity.White" android:targetActivity="mcdonalds.core.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity-alias>
+        <activity android:name="mcdonalds.core.base.activity.ForceUpdateActivity" android:screenOrientation="portrait"/>
+        <activity android:name="mcdonalds.core.base.activity.SecurityErrorActivity" android:screenOrientation="portrait"/>
+        <activity android:immersive="true" android:name="mcdonalds.scanner.ScannerActivity" android:screenOrientation="portrait"/>
+        <receiver android:exported="true" android:name="com.google.android.gms.gcm.GcmReceiver" android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                <category android:name="com.mcdonalds.mobileapp"/>
+            </intent-filter>
+        </receiver>
+        <service android:exported="false" android:name="mcdonalds.core.service.gcm.GMALiteGcmListenerService">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+            </intent-filter>
+        </service>
+        <service android:name="mcdonalds.core.service.MarketSwitchJobService" android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <activity android:exported="true" android:name="com.google.android.gms.tagmanager.TagManagerPreviewActivity" android:noHistory="true">
+            <intent-filter>
+                <data android:scheme="com.mcdonalds.mobileapp.preview"/>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+            </intent-filter>
+            <intent-filter>
+                <data android:scheme="tagmanager.c.com.mcdonalds.mobileapp"/>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+            </intent-filter>
+        </activity>
+        <meta-data android:name="com.facebook.sdk.AutoLogAppEventsEnabled" android:value="false"/>
+        <meta-data android:name="io.fabric.ApiKey" android:value="5a10b659ffd3efdc7992776f4c92a6f28cc266ba"/>
+        <provider android:authorities="com.mcdonalds.mobileapp.lifecycle-trojan" android:exported="false" android:multiprocess="true" android:name="android.arch.lifecycle.ProcessLifecycleOwnerInitializer"/>
+        <activity android:name="com.github.javiersantos.piracychecker.activities.LicenseActivity" android:theme="@style/PiracyCheckerStyle"/>
+        <activity android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize" android:name="com.facebook.FacebookActivity" android:theme="@style/com_facebook_activity_theme"/>
+        <activity android:name="com.facebook.CustomTabMainActivity"/>
+        <provider android:authorities="com.mcdonalds.mobileapp.FacebookInitProvider" android:exported="false" android:name="com.facebook.internal.FacebookInitProvider"/>
+        <activity android:name="co.vmob.sdk.debug.DiagnosticsActivity"/>
+        <activity android:name="co.vmob.sdk.debug.tabs.InfoTabActivity"/>
+        <activity android:name="co.vmob.sdk.debug.tabs.RegionsTabActivity"/>
+        <activity android:name="co.vmob.sdk.debug.tabs.EventsTabActivity"/>
+        <activity android:name="co.vmob.sdk.debug.tabs.LogsTabActivity"/>
+        <receiver android:name="co.vmob.sdk.common.DeviceBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:exported="true" android:name="co.vmob.sdk.gcm.GCMBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
+                <category android:name="co.vmob.sdk"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:enabled="true" android:name="co.vmob.sdk.common.VMobJobReceiver"/>
+        <service android:enabled="true" android:name="co.vmob.sdk.common.DeviceBootService" android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service android:enabled="true" android:name="co.vmob.sdk.activity.ActivityService" android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service android:enabled="true" android:name="co.vmob.sdk.location.geofence.GeofenceService" android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service android:name="co.vmob.sdk.location.geofence.GeofenceEventService" android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service android:name="co.vmob.sdk.location.beacon.BeaconScannerService" android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service android:name="co.vmob.sdk.location.beacon.BeaconScannerServiceLegacy"/>
+        <activity android:exported="true" android:name="com.google.android.gms.appinvite.PreviewActivity" android:theme="@style/Theme.AppInvite.Preview">
+            <intent-filter>
+                <action android:name="com.google.android.gms.appinvite.ACTION_PREVIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:exported="false" android:name="com.google.android.gms.common.api.GoogleApiActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <service android:enabled="true" android:exported="false" android:name="com.google.android.gms.tagmanager.TagManagerService"/>
+        <receiver android:enabled="true" android:exported="false" android:name="com.google.android.gms.measurement.AppMeasurementReceiver"/>
+        <receiver android:enabled="true" android:exported="true" android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver" android:permission="android.permission.INSTALL_PACKAGES">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER"/>
+            </intent-filter>
+        </receiver>
+        <service android:enabled="true" android:exported="false" android:name="com.google.android.gms.measurement.AppMeasurementService"/>
+        <service android:enabled="true" android:exported="false" android:name="com.google.android.gms.measurement.AppMeasurementJobService" android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <receiver android:exported="true" android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver" android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                <category android:name="com.mcdonalds.mobileapp"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:exported="false" android:name="com.google.firebase.iid.FirebaseInstanceIdInternalReceiver"/>
+        <service android:exported="true" android:name="com.google.firebase.iid.FirebaseInstanceIdService">
+            <intent-filter android:priority="-500">
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+        <provider android:authorities="com.mcdonalds.mobileapp.firebaseinitprovider" android:exported="false" android:initOrder="100" android:name="com.google.firebase.provider.FirebaseInitProvider"/>
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
+        <activity android:configChanges="orientation|screenSize" android:exported="false" android:name="com.digits.sdk.android.PhoneNumberActivity" android:taskAffinity="com.digits.sdk.android" android:windowSoftInputMode="stateVisible"/>
+        <activity android:configChanges="orientation|screenSize" android:exported="false" android:name="com.digits.sdk.android.ConfirmationCodeActivity" android:taskAffinity="com.digits.sdk.android" android:windowSoftInputMode="stateVisible"/>
+        <activity android:configChanges="orientation|screenSize" android:exported="false" android:name="com.digits.sdk.android.LoginCodeActivity" android:taskAffinity="com.digits.sdk.android" android:windowSoftInputMode="stateVisible"/>
+        <activity android:configChanges="orientation|screenSize" android:exported="false" android:name="com.digits.sdk.android.PinCodeActivity" android:taskAffinity="com.digits.sdk.android" android:windowSoftInputMode="stateVisible"/>
+        <activity android:configChanges="orientation|screenSize" android:exported="false" android:name="com.digits.sdk.android.FailureActivity" android:taskAffinity="com.digits.sdk.android"/>
+        <activity android:configChanges="orientation|screenSize" android:exported="false" android:name="com.digits.sdk.android.ContactsActivity"/>
+        <activity android:configChanges="orientation|screenSize" android:exported="false" android:name="com.digits.sdk.android.EmailRequestActivity" android:taskAffinity="com.digits.sdk.android" android:windowSoftInputMode="stateVisible"/>
+        <activity android:configChanges="orientation|screenSize" android:exported="false" android:name="com.digits.sdk.android.PhoneNumberActionBarActivity" android:taskAffinity="com.digits.sdk.android" android:windowSoftInputMode="stateVisible"/>
+        <activity android:configChanges="orientation|screenSize" android:exported="false" android:name="com.digits.sdk.android.ConfirmationCodeActionBarActivity" android:taskAffinity="com.digits.sdk.android" android:windowSoftInputMode="stateVisible"/>
+        <activity android:configChanges="orientation|screenSize" android:exported="false" android:name="com.digits.sdk.android.LoginCodeActionBarActivity" android:taskAffinity="com.digits.sdk.android" android:windowSoftInputMode="stateVisible"/>
+        <activity android:configChanges="orientation|screenSize" android:exported="false" android:name="com.digits.sdk.android.FailureActionBarActivity" android:taskAffinity="com.digits.sdk.android"/>
+        <activity android:configChanges="orientation|screenSize" android:exported="false" android:name="com.digits.sdk.android.ContactsActionBarActivity"/>
+        <activity android:configChanges="orientation|screenSize" android:exported="false" android:name="com.digits.sdk.android.InviteActionBarActivity"/>
+        <activity android:configChanges="orientation|screenSize" android:exported="false" android:name="com.digits.sdk.android.PinCodeActionBarActivity" android:taskAffinity="com.digits.sdk.android" android:windowSoftInputMode="stateVisible"/>
+        <activity android:configChanges="orientation|screenSize" android:exported="false" android:name="com.digits.sdk.android.EmailRequestActionBarActivity" android:taskAffinity="com.digits.sdk.android" android:windowSoftInputMode="stateVisible"/>
+        <activity android:configChanges="orientation|screenSize" android:exported="false" android:name="com.digits.sdk.android.InviteActivity" android:taskAffinity="com.digits.sdk.android" android:windowSoftInputMode="stateHidden"/>
+        <service android:enabled="true" android:exported="false" android:name="com.digits.sdk.android.ContactsUploadService"/>
+        <service android:enabled="true" android:exported="false" android:name="com.digits.sdk.android.AttributableInviteDownloadService"/>
+        <activity android:configChanges="orientation|screenSize" android:excludeFromRecents="true" android:exported="false" android:name="com.twitter.sdk.android.core.identity.OAuthActivity"/>
+        <activity android:configChanges="orientation|screenSize" android:excludeFromRecents="true" android:exported="false" android:icon="@drawable/tw__transparent" android:label="@string/kit_name" android:name="com.twitter.sdk.android.core.identity.ShareEmailActivity"/>
+        <receiver android:name="org.altbeacon.beacon.startup.StartupBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
+            </intent-filter>
+        </receiver>
+        <service android:enabled="true" android:exported="false" android:isolatedProcess="false" android:label="beacon" android:name="org.altbeacon.beacon.service.BeaconService"/>
+        <service android:enabled="true" android:exported="false" android:name="org.altbeacon.beacon.BeaconIntentProcessor"/>
+        <service android:name="org.altbeacon.beacon.service.ScanJob" android:permission="android.permission.BIND_JOB_SERVICE">
+            <meta-data android:name="immediateScanJobId" android:value="208352939"/>
+            <meta-data android:name="periodicScanJobId" android:value="208352940"/>
+        </service>
+        <service android:name="org.altbeacon.bluetooth.BluetoothTestJob" android:permission="android.permission.BIND_JOB_SERVICE">
+            <meta-data android:name="jobId" android:value="1799803768"/>
+        </service>
+    </application>
+</manifest>

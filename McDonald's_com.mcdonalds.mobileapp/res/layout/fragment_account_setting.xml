@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:background="@color/GMA_Lite.White" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:paddingBottom="20.0dip" android:focusable="true" android:focusableInTouchMode="true" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <LinearLayout android:orientation="vertical" android:id="@id/account_setting_form_holder" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="20.0dip" />
+        <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:id="@id/account_setting_user_id_holder" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="20.0dip" />
+        <mcdonalds.core.view.RuntimeUpdatableTextView android:textColor="?themeColor" android:layout_gravity="center" android:id="@id/account_setting_privacy" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/gmal_account_privacy" android:layout_marginStart="10.0dip" style="@style/GMA_Lite_TextAppearance.Body" />
+        <RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <LinearLayout android:orientation="vertical" android:id="@id/account_setting_button_holder_vertical" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <mcdonalds.core.view.RuntimeUpdatableButtonView android:id="@id/account_setting_edit_button" android:layout_marginLeft="10.0dip" android:layout_marginTop="20.0dip" android:layout_marginRight="10.0dip" android:text="@string/gmal_account_setting_button_edit" style="@style/GMA_Lite_ButtonAppearance" />
+                <mcdonalds.core.view.RuntimeUpdatableButtonView android:id="@id/account_setting_logout_button" android:layout_marginLeft="10.0dip" android:layout_marginTop="20.0dip" android:layout_marginRight="10.0dip" android:text="@string/gmal_account_setting_button_logout" style="@style/GMA_Lite_ButtonAppearance" />
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:id="@id/account_setting_button_holder_horizontal" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="20.0dip" android:weightSum="2.0">
+                <mcdonalds.core.view.RuntimeUpdatableButtonView android:id="@id/account_setting_cancel_button" android:background="@drawable/secondary_color_button_ripple" android:text="@string/gmal_account_setting_button_cancel" android:layout_weight="1.0" android:layout_marginStart="10.0dip" android:layout_marginEnd="5.0dip" style="@style/GMA_Lite_ButtonAppearance" />
+                <mcdonalds.core.view.RuntimeUpdatableButtonView android:id="@id/account_setting_save_button" android:text="@string/gmal_account_setting_button_save" android:layout_weight="1.0" android:layout_marginStart="5.0dip" android:layout_marginEnd="10.0dip" style="@style/GMA_Lite_ButtonAppearance" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>
