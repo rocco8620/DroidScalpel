@@ -7,17 +7,17 @@ IF:
 
 Trovato --> Diventa -- Modifica
 if-eq       --         Uguale
-if-ne       if-eq      Inverto destinazione salto
-if-lt       if-ge      Inverto destinazione salto
 if-ge       --         Uguale
 if-gt       --         Uguale
-if-le       if-gt      Inverto destinazione salto
 if-eqz      --         Uguale
-if-nez      if-eqz     Inverto destinazione salto
-if-ltz      if-gez     Inverto destinazione salto
 if-gez      --         Uguale
 if-gtz      --         Uguale
 if-lez      if-gtz     Inverto destinazione salto
+if-ne       if-eq      Inverto destinazione salto
+if-lt       if-ge      Inverto destinazione salto
+if-nez      if-eqz     Inverto destinazione salto
+if-ltz      if-gez     Inverto destinazione salto
+if-le       if-gt      Inverto destinazione salto
 
 
 
@@ -63,5 +63,10 @@ Checks vx and jumps if vx <= 0
 
 Operazioni che provocano branching ancora non gestite:
 
+throw
 packed-switch
 sparse-switch
+
+
+Cose da ignorar enelle comparazioni:
+Presenza deli nodi cond_x
