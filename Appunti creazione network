@@ -63,10 +63,11 @@ Checks vx and jumps if vx <= 0
 
 Operazioni che provocano branching ancora non gestite:
 
-throw
 packed-switch
 sparse-switch
 
+Cose varie:
+Verificare attributo 'varargs' dei methodi
 
-Cose da ignorar enelle comparazioni:
-Presenza deli nodi cond_x
+
+Cose da ignorare nelle comparazioni:

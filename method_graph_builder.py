@@ -1,3 +1,4 @@
+
 LINES = [
 'iget-object v0, p2, Lokhttp3/Response;->body:Lokhttp3/ResponseBody;',
 'if-nez v0, :cond_3',
@@ -110,18 +111,10 @@ LINES2 = [
 ]
 
 import networkx as nx
-import matplotlib.pyplot as plt
-
-class MethodStruct:
-    def __init__(self, name, return_type, arguments):
-        self.method_name = name
-        self.return_type = return_type
-        self.arguments = arguments
-        self.instructions = []
-        self.method_flow = None
+from instruction_normalizer import normalize_generic_instruction
 
 
-def handle_ifs(graph, line, i, total_instructions):
+def __handle_ifs(graph, line, i, total_instructions):
 
     # Trovato --> Diventa -- Modifica
     # if-eq       --         Uguale
@@ -140,7 +133,7 @@ def handle_ifs(graph, line, i, total_instructions):
     if line.startswith(("if-eq", "if-ge", "if-gt", "if-eqz", "if-gez", "if-gtz")):
 
         # aggiungo il nodo per l'istruzione attuale
-        graph.add_node(i, istr=line, target=':' + line.split(':')[1], reversed=False)
+        graph.add_node(i, istr=normalize_generic_instruction(line), target=':' + line.split(':')[1], reversed=False)
         # connetto con l'istruzione dopo se siste
         if i+1 < total_instructions:
             # direzione negativa perche' l'instruzione non salta se falsa e noi non la giriamo (reversed=False)
@@ -156,7 +149,7 @@ def handle_ifs(graph, line, i, total_instructions):
         elif line.startswith("if-le"): line = line.replace("if-le", "if-gt")
 
         # aggiungo il nodo per l'istruzione attuale
-        graph.add_node(i, istr=line, target=':' + line.split(':')[1], reversed=True)
+        graph.add_node(i, istr=normalize_generic_instruction(line), target=':' + line.split(':')[1], reversed=True)
         # connetto con l'istruzione dopo se siste
         if i+1 < total_instructions:
             # direzione positiva perche' l'instruzione non salta se falsa e noi la giriamo (reversed=True)
@@ -167,8 +160,8 @@ def handle_ifs(graph, line, i, total_instructions):
 
 
 
-def create_method_flow(li):
-    G = nx.MultiDiGraph()
+def create_method_graph(li):
+    G = nx.DiGraph()
     G.add_node(-1, istr="{method start}")
     G.add_edge(-1, 0)
 
@@ -181,29 +174,30 @@ def create_method_flow(li):
     while i < n_lines:
         # se siamo in un if
         if li[i].startswith("if-"):
-            handle_ifs(G, li[i], i, n_lines)
+            __handle_ifs(G, li[i], i, n_lines)
 
 
         elif li[i].startswith(":cond_"):
-            # creo il nodo
-            G.add_node(i, istr=li[i])
 
-            # connetto con il relativo if se esiste
+
+            # connetto il nodo successivo al :cond_X con il relativo if se esiste, aggiungo un return-void in caso contrario
             conn = [ (x[0], x[1]['reversed']) for x in G.nodes(data=True, default=None) if 'target' in x[1] and x[1]['target'] == li[i] ]
             if len(conn) == 1:
                 for c in conn:
-                    G.add_edge(c[0], i, direction="negative" if c[1] else "positive")
+                    if i+1 < n_lines:
+                        G.add_edge(c[0], i+1, direction="negative" if c[1] else "positive")
+                    else:
+                        G.add_node(i+1, istr="return-void")
+                        G.add_edge(c[0], i+1, direction="negative" if c[1] else "positive")
             else:
                 raise Exception("Errore if, len(conn) =", len(conn))
 
-            # connetto con l'istruzione dopo se siste
-            if i+1 < n_lines:
-                G.add_edge(i, i+1)
-        
+            
+            
         elif li[i].startswith("goto"):
             # aggiungo il nodo per l'istruzione attuale
             t = ':'+li[i].split(':')[1]
-            G.add_node(i, istr=li[i], target=t)
+            G.add_node(i, istr=normalize_generic_instruction(li[i]), target=t)
 
             # non connetto all'istruzione successiva
 
@@ -214,7 +208,7 @@ def create_method_flow(li):
 
         elif li[i].startswith(":goto_"):
             # aggiungo il nodo per l'istruzione attuale
-            G.add_node(i, istr=li[i])
+            G.add_node(i, istr=normalize_generic_instruction(li[i]))
 
             # connetto con il relativo goto se esiste
             conn = [ x[0] for x in G.nodes(data='target', default=None) if x[1] == li[i] ]
@@ -231,12 +225,12 @@ def create_method_flow(li):
             if i+1 < n_lines:
                 G.add_edge(i, i+1)
 
-        elif li[i].startswith(("return", "-throw")):
+        elif li[i].startswith(("return", "throw")):
             # creo il nodo
-            G.add_node(i, istr=li[i])
+            G.add_node(i, istr=normalize_generic_instruction(li[i]))
             # non connetto da nessuna parte
         else:
-            G.add_node(i, istr=li[i])
+            G.add_node(i, istr=normalize_generic_instruction(li[i]))
             # connetto con l'itruzione dopo se esiste
             if i+1 < n_lines:
                 G.add_edge(i, i+1)
@@ -245,17 +239,22 @@ def create_method_flow(li):
 
     return G
 
-m = MethodStruct("met_1", "V", [])
-m.instructions = LINES
+if __name__ == '__main__':
+    import matplotlib.pyplot as plt
+    from commons import MethodStruct
 
-m.method_flow = create_method_flow(m.instructions)
+    m = MethodStruct("met_1", "V", [])
+    m.instructions = LINES
 
-pos = nx.kamada_kawai_layout(m.method_flow)
-nx.draw_networkx_labels(m.method_flow, pos=pos, labels=nx.get_node_attributes(m.method_flow, 'istr'))
-nx.draw_networkx_edge_labels(m.method_flow, pos=pos, labels=nx.get_edge_attributes(m.method_flow, 'direction'))
+    m.method_graph = create_method_graph(m.instructions)
 
-nx.draw_kamada_kawai(m.method_flow)
-plt.show()
+    print(len(m.instructions)+1)
+    print(m.method_graph.number_of_nodes())
 
-print(len(m.instructions)+1)
-print(m.method_flow.number_of_nodes())
+    pos = nx.kamada_kawai_layout(m.method_graph)
+    nx.draw_networkx_labels(m.method_graph, pos=pos, labels=nx.get_node_attributes(m.method_graph, 'istr'))
+    nx.draw_networkx_edge_labels(m.method_graph, pos=pos, labels=nx.get_edge_attributes(m.method_graph, 'direction'))
+
+    nx.draw_kamada_kawai(m.method_graph)
+    plt.show()
+

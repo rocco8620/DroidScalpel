@@ -1,4 +1,4 @@
-import hashlib
+from commons import ClassStruct, MethodStruct
 
 class SmaliFileParser:
 	def __init__(self, file_path):
@@ -19,19 +19,19 @@ class SmaliFileParser:
 				continue
 			elif LINES[i].startswith(".class"):
 				if self.parsed_class is None:
-					self.parsed_class = self.handle_class_line(LINES[i])
+					self.parsed_class = self.__handle_class_line(LINES[i])
 				else:
 					raise Exception("Multiple definizioni di .class nel file")
 
 			elif LINES[i].startswith(".super"):
 				if self.parsed_class is not None:
-					self.parsed_class.super_class = self.handle_super_line(LINES[i])
+					self.parsed_class.super_class = self.__handle_super_line(LINES[i])
 				else:
 					raise Exception("Impossibile aggiungere una superclasse ad una classe nulla")
 
 			elif LINES[i].startswith(".method"):
 				if self.parsed_class is not None:
-					name, return_type, arguments = self.handle_method_definition(LINES[i][8:])
+					name, return_type, arguments = self.__handle_method_definition(LINES[i][8:])
 					ms = MethodStruct(name, return_type, arguments)
 					j = i+1
 					while j < n_lines and LINES[j] != ".end method":
@@ -54,7 +54,7 @@ class SmaliFileParser:
 								k += 1
 							j = k
 						else:
-							ms.instructions.append(self.remove_comment(LINES[j]))
+							ms.instructions.append(self.__remove_comment(LINES[j]))
 						j += 1
 
 					self.parsed_class.methods.append(ms)
@@ -84,23 +84,23 @@ class SmaliFileParser:
 			i += 1
 
 
-	def handle_class_line(self, l):
+	def __handle_class_line(self, l):
 		try:
 			return ClassStruct(l.split(' ')[-1].split(';')[0][1:].replace("/","."), self.file_path)
 		except Exception as e:
 			print(l)
 			raise e
 
-	def handle_super_line(self, l):
+	def __handle_super_line(self, l):
 		return l.split(' ')[1].split(';')[0][1:].replace("/",".")
 
-	def remove_comment(self, l):
+	def __remove_comment(self, l):
 		if '#' in l:
 			return l.split('#')[0].rstrip()
 		else:
 			return l
 
-	def handle_method_definition(self, l):
+	def __handle_method_definition(self, l):
 		# protected onCreate(Landroid/os/Bundle;)V
 		# public constructor <init>()V
 		# public method_1()V
@@ -132,7 +132,6 @@ class SmaliFileParser:
 					while(i < arguments_len and arguments[i] != ';'):
 						piece += arguments[i]
 						i += 1
-					piece = piece.replace("/",".")
 				else:
 					piece += arguments[i]
 
@@ -145,42 +144,3 @@ class SmaliFileParser:
 	def get_parsed_class(self):
 		return self.parsed_class
 
-class ClassStruct:
-	def __init__(self, name, file_path):
-		self.class_name = name
-		self.super_class = ""
-		self.enclosing_class = ""
-		self.methods = []
-		self.classes = []
-		self.file_path = file_path
-
-class MethodStruct:
-	def __init__(self, name, return_type, arguments):
-		self.method_name = name
-		self.return_type = return_type
-		self.arguments = arguments
-		self.instructions = []
-
-	def get_hash(self):
-		data = ' '.join(self.instructions)
-
-		i = 0
-		tmp = ""
-		while self.return_type[i] == '[':
-			tmp += '['
-			i += 1
-
-		tmp += self.return_type[i]
-		data += " | " + tmp
-
-		for arg in self.arguments:
-			i = 0
-			tmp = ""
-			while arg[i] == '[':
-				tmp += '['
-				i += 1
-
-			tmp += arg[i]
-			data += " | " + tmp
-
-		return hashlib.md5(data.encode('utf-8')).hexdigest()
