@@ -1,4 +1,3 @@
-
 LINES = [
 'iget-object v0, p2, Lokhttp3/Response;->body:Lokhttp3/ResponseBody;',
 'if-nez v0, :cond_3',
@@ -55,7 +54,7 @@ LINES = [
 'throw p2'
 ]
 
-LINES2 = [
+LINES2 = [ # qui si spaccano le cose quando abbiamo più di una destinazione di salto consecutiva
 'iget-object v0, p2, Lokhttp3/ac;->g:Lokhttp3/ad;',
 'if-eqz v0, :cond_0',
 'new-instance p2, Ljava/lang/IllegalArgumentException;',
@@ -80,7 +79,9 @@ LINES2 = [
 'invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;',
 'move-result-object p1',
 'invoke-direct {p2, p1}, Ljava/lang/IllegalArgumentException;-><init>(Ljava/lang/String;)V',
+'goto :goto_0' # added
 'throw p2',
+':goto_0', # added
 ':cond_1',
 'iget-object v0, p2, Lokhttp3/ac;->i:Lokhttp3/ac;',
 'if-eqz v0, :cond_2',
@@ -108,6 +109,49 @@ LINES2 = [
 'invoke-direct {p2, p1}, Ljava/lang/IllegalArgumentException;-><init>(Ljava/lang/String;)V',
 'throw p2',
 ':cond_3',
+]
+
+LINES3 = [
+
+]
+
+LINES4 = [
+'if-nez p1, :cond_0',
+':catch_0',
+':goto_0',
+'invoke-virtual {p2}, Lcom/google/android/gms/internal/fb;->b()Ljava/lang/Object;',
+'move-result-object p1',
+'check-cast p1, Ljava/lang/Long;',
+'invoke-virtual {p1}, Ljava/lang/Long;->longValue()J',
+'move-result-wide p1',
+'return-wide p1',
+':cond_0',
+'invoke-virtual {p0}, Lcom/google/android/gms/internal/hh;->r()Lcom/google/android/gms/internal/ge;',
+'move-result-object v0',
+'invoke-virtual {p2}, Lcom/google/android/gms/internal/fb;->a()Ljava/lang/String;',
+'move-result-object v1',
+'invoke-virtual {v0, p1, v1}, Lcom/google/android/gms/internal/ge;->a(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;',
+'move-result-object p1',
+'invoke-static {p1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z',
+'move-result v0',
+'if-eqz v0, :cond_1',
+'goto :goto_0',
+':cond_1',
+':try_start_0',
+'invoke-static {p1}, Ljava/lang/Long;->valueOf(Ljava/lang/String;)Ljava/lang/Long;',
+'move-result-object p1',
+'invoke-virtual {p1}, Ljava/lang/Long;->longValue()J',
+'move-result-wide v0',
+'invoke-static {v0, v1}, Ljava/lang/Long;->valueOf(J)Ljava/lang/Long;',
+'move-result-object p1',
+'invoke-virtual {p2, p1}, Lcom/google/android/gms/internal/fb;->a(Ljava/lang/Object;)Ljava/lang/Object;',
+'move-result-object p1',
+'check-cast p1, Ljava/lang/Long;',
+'invoke-virtual {p1}, Ljava/lang/Long;->longValue()J',
+'move-result-wide v0',
+':try_end_0',
+'.catch Ljava/lang/NumberFormatException; {:try_start_0 .. :try_end_0} :catch_0',
+'return-wide v0'
 ]
 
 import networkx as nx
@@ -178,7 +222,8 @@ def create_method_graph(li):
 
 
         elif li[i].startswith(":cond_"):
-
+            # aggiungo il nodo per l'istruzione attuale
+            #G.add_node(i, istr=li[i])
 
             # connetto il nodo successivo al :cond_X con il relativo if se esiste, aggiungo un return-void in caso contrario
             conn = [ (x[0], x[1]['reversed']) for x in G.nodes(data=True, default=None) if 'target' in x[1] and x[1]['target'] == li[i] ]
@@ -192,7 +237,10 @@ def create_method_graph(li):
             else:
                 raise Exception("Errore if, len(conn) =", len(conn))
 
-            
+            # connetto con l'istruzione dopo se siste
+            #if i+1 < n_lines:
+            #    G.add_edge(i, i+1)
+
             
         elif li[i].startswith("goto"):
             # aggiungo il nodo per l'istruzione attuale
@@ -244,7 +292,7 @@ if __name__ == '__main__':
     from commons import MethodStruct
 
     m = MethodStruct("met_1", "V", [])
-    m.instructions = LINES
+    m.instructions = LINES2
 
     m.method_graph = create_method_graph(m.instructions)
 

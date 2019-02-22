@@ -104,95 +104,101 @@ def __get_argument_list(arguments):
 
 
 def normalize_generic_instruction(li):
+    return li
 
-        # iget-object v0, p2, Lokhttp3/Response;->body:[[Lokhttp3/ResponseBody;
-        if li.startswith("iget-object"):
-            li = li.split(",")
-            tmp = li[2].strip().split(":") 
-            attribute_type, _ = __get_type(tmp[1])
-            tmp = tmp[0].split("->")
-            object_class, is_java = __get_type(tmp[0])
-            # se la classe e' java/android mantengo il nome dell'attributo
-            attribute_name = tmp[1] if is_java else 'attr'
+    # iget-object v0, p2, Lokhttp3/Response;->body:[[Lokhttp3/ResponseBody;
+    # iget p1, p0, Lio/fabric/sdk/android/services/c/b;->e:I
+    # iput-short v2, v12, Lcom/ibm/icu/text/am;->e:S
+    # iput-char p1, p0, Lcom/ibm/icu/impl/n;->b:C
+    # iput v0, p0, Lcom/getkeepsafe/relinker/a/f;->a:I
+    if li.startswith(("iget", "iput")):
+        li = li.split(" ")
+        tmp = li[-1].split(":") 
+        attribute_type, _ = __get_type(tmp[1])
+        tmp = tmp[0].split("->")
+        object_class, is_java = __get_type(tmp[0])
+        # se la classe e' java/android mantengo il nome dell'attributo
+        attribute_name = tmp[1] if is_java else 'attr'
 
-            return 'iget-object rr, rr, ' + object_class + ';->' + attribute_name + ':' + attribute_type + ';'
+        return li[0] + ' rr, rr, ' + object_class + ';->' + attribute_name + ':' + attribute_type + ';'
 
-        # new-instance p2, Ljava/lang/IllegalArgumentException;
-        elif li.startswith("new-instance"):
-            li = li.split(",")
-            class_name, _ = __get_type(li[1].strip())
 
-            return 'new-instance rr, ' + class_name + ';'
+    # new-instance p2, Ljava/lang/IllegalArgumentException;
+    elif li.startswith("new-instance"):
+        li = li.split(",")
+        class_name, _ = __get_type(li[1].strip())
 
-        # if-ltz r0, target
-        # if-gt p1, p2, target
-        elif li.startswith("if-"):
+        return 'new-instance rr, ' + class_name + ';'
 
-            return li.split(' ')[0]
+    # if-ltz r0, target
+    # if-gt p1, p2, target
+    elif li.startswith("if-"):
 
-        # return-object p0
-        # return-void
-        elif li.startswith("return"):
+        return li.split(' ')[0]
 
-            return li.split(' ')[0]
+    # return-object p0
+    # return-void
+    elif li.startswith("return"):
 
-        # const-wide/16 v6, 0x0
-        # const-string v11, "User property timed out"
-        # const/16 v3, 0x270
-        elif li.startswith("const"):
-            tmp = li.split(' ')
-            return tmp[0] + ' rr, ' + tmp[-1]
+        return li.split(' ')[0]
 
-        # move-object/from16 v0, p0
-        # move-result v0
-        # move-exception p1
-        elif li.startswith("move"):
-            tmp = li.split(' ')
-            return tmp[0] + ' rr, ' + tmp[-1]
+    # const-wide/16 v6, 0x0
+    # const-string v11, "User property timed out"
+    # const/16 v3, 0x270
+    elif li.startswith("const"):
+        tmp = li.split(' ')
+        return tmp[0] + ' rr, ' + tmp[-1]
 
-        elif li.startswith(":cond_"):
-            return ':cond_x'
+    # move-object/from16 v0, p0
+    # move-result v0
+    # move-exception p1
+    elif li.startswith("move"):
+        tmp = li.split(' ')
+        return tmp[0] + ' rr, ' + tmp[-1]
 
-        elif li.startswith(":goto_"):
-            return ':goto_x'
+    elif li.startswith(":cond_"):
+        return ':cond_x'
 
-        elif li.startswith("throw"):
-            return 'throw rr'
+    elif li.startswith(":goto_"):
+        return ':goto_x'
 
-        # invoke-super {p0}, Lio/reactivex/d/d/a;->d_()V
-        # invoke-interface {v0, p0}, Ljava/util/Collection;->add(Ljava/lang/Object;)Z
-        # invoke-virtual {v8, v9}, Landroid/graphics/Canvas;->restoreToCount(I)V
-        # invoke-static {}, Lcom/facebook/FacebookSdk;->getApplicationId()Ljava/lang/String;
-        # invoke-direct {p0}, Ljava/lang/Object;-><init>()V
-        # invoke-direct/range {v0 .. v7}, Lio/fabric/sdk/android/services/concurrency/k;-><init>(IIJLjava/util/concurrent/TimeUnit;Lio/fabric/sdk/android/services/concurrency/c;Ljava/util/concurrent/ThreadFactory;)V
-        elif li.startswith("invoke-"):
-            l = li.split(' ')
-            proto = l[-1].split("->")
-            object_class, is_java = __get_type(proto[0])
-            tmp = proto[1].split('(')
+    elif li.startswith("throw"):
+        return 'throw rr'
 
-            if is_java or tmp[0] == '<init>':
-                method_name = tmp[0]
-            else:
-                method_name = "method"
+    # invoke-super {p0}, Lio/reactivex/d/d/a;->d_()V
+    # invoke-interface {v0, p0}, Ljava/util/Collection;->add(Ljava/lang/Object;)Z
+    # invoke-virtual {v8, v9}, Landroid/graphics/Canvas;->restoreToCount(I)V
+    # invoke-static {}, Lcom/facebook/FacebookSdk;->getApplicationId()Ljava/lang/String;
+    # invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+    # invoke-direct/range {v0 .. v7}, Lio/fabric/sdk/android/services/concurrency/k;-><init>(IIJLjava/util/concurrent/TimeUnit;Lio/fabric/sdk/android/services/concurrency/c;Ljava/util/concurrent/ThreadFactory;)V
+    elif li.startswith("invoke-"):
+        l = li.split(' ')
+        proto = l[-1].split("->")
+        object_class, is_java = __get_type(proto[0])
+        tmp = proto[1].split('(')
 
-            tmp = tmp[1].split(')')
-            arguments_types = ','.join(__get_argument_list(tmp[0]))
-            return_value, _ = __get_type(tmp[1])
-
-            arguments = li.split('{')[1].split('}')[0].split(' ')
-            if len(arguments) > 0:
-                if '..' in arguments:
-                    arguments = 'rr .. rr'
-                else:
-                    arguments = 'rr, ' * len(arguments)
-            else:
-                arguments = ''
-
-            return l[0] + ' {' + arguments + '}, ' + object_class + ';->' + method_name + '(' + arguments_types + ')' + return_value
-
+        if is_java or tmp[0] == '<init>':
+            method_name = tmp[0]
         else:
-            raise RuntimeError("Linea non riconosciuta: " + li)
+            method_name = "method"
+
+        tmp = tmp[1].split(')')
+        arguments_types = ','.join(__get_argument_list(tmp[0]))
+        return_value, _ = __get_type(tmp[1])
+
+        arguments = li.split('{')[1].split('}')[0].split(' ')
+        if len(arguments) > 0:
+            if '..' in arguments:
+                arguments = 'rr .. rr'
+            else:
+                arguments = 'rr, ' * len(arguments)
+        else:
+            arguments = ''
+
+        return l[0] + ' {' + arguments + '}, ' + object_class + ';->' + method_name + '(' + arguments_types + ')' + return_value
+
+    else:
+        raise RuntimeError("Linea non riconosciuta: " + li)
 
             
 if __name__ == '__main__':
