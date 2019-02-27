@@ -79,7 +79,7 @@ LINES2 = [ # qui si spaccano le cose quando abbiamo più di una destinazione di 
 'invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;',
 'move-result-object p1',
 'invoke-direct {p2, p1}, Ljava/lang/IllegalArgumentException;-><init>(Ljava/lang/String;)V',
-'goto :goto_0' # added
+'goto :goto_0', # added
 'throw p2',
 ':goto_0', # added
 ':cond_1',
@@ -111,11 +111,19 @@ LINES2 = [ # qui si spaccano le cose quando abbiamo più di una destinazione di 
 ':cond_3',
 ]
 
-LINES3 = [
+# E' necessario verificare quante linee .catch possono esistere: esistono N linee catch 
+# quante possono puntare allo stesso :catch_X: assumo N
+# se il loro ordine conta: si conta, percio':
+#     - per ogni blocco try:
+#         - si crea una struttura con una catena di nodi che indicano i vari .catch, che parte dal relativo try_end
+#         - si aggiunge un nodo per la direttiva .catchall, se esiste, connesso al relativo try_end
+#
+# vedere: https://stackoverflow.com/questions/14100992/how-does-dalvikvm-handle-switch-and-try-smali-code 
+#
+# esempio:
+# :try_end_0 -> .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0 -> :catch_0
 
-]
-
-LINES4 = [
+LINES5 = [ 
 'if-nez p1, :cond_0',
 ':catch_0',
 ':goto_0',
@@ -152,6 +160,33 @@ LINES4 = [
 ':try_end_0',
 '.catch Ljava/lang/NumberFormatException; {:try_start_0 .. :try_end_0} :catch_0',
 'return-wide v0'
+]
+
+
+LINES6 = [
+':try_start_0',
+'nothing fancy',
+':try_end_0',
+'return-void',
+':catch_0',
+'catcho lo 0',
+'return-void',
+':catch_1',
+'catcho lo 1',
+'return-void',
+':catch_2',
+'catcho lo 2',
+'return-void',
+':catch_3',
+'catcho lo 3',
+'return-void',
+]
+
+EXCEPT6 = [
+'.catch Ljava/lang/cat0; {:try_start_0 .. :try_end_0} :catch_0',
+'.catch Ljava/lang/cat1; {:try_start_0 .. :try_end_0} :catch_1',
+'.catch Ljava/lang/cat2; {:try_start_0 .. :try_end_0} :catch_2',
+'.catch Ljava/lang/cat3; {:try_start_0 .. :try_end_0} :catch_3',
 ]
 
 import networkx as nx
@@ -203,16 +238,77 @@ def __handle_ifs(graph, line, i, total_instructions):
         raise Exception("Malformed if:", line)
 
 
-
-def create_method_graph(li):
+def create_method_graph(li, ex):
     G = nx.DiGraph()
+
+    i = 100000
+
+    # input: ':catch_0' oppure ':try_end_0'
+    # output: <id nodo .catch> 
+    # chiavi ':catch_' -> lista
+    # chiavi ':try_end_' -> int
+    catch_directives = {}
+    last_directive_in_chain = {}
+
+    # parso le eccezioni se ce ne sono
+    # formato:  :try_end_0 -> .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0 [ -> .catch Ljava/lang/MyException; {:try_start_0 .. :try_end_0} :catch_1 ] -> :catch_0
+    #
+    # .catch Ljava/lang/NoSuchMethodException; {:try_start_0 .. :try_end_0} :catch_0
+    #           .catch Ljava/lang/MyException; {:try_start_0 .. :try_end_0} :catch_1
+    #  .catch Ljava/lang/MyExceptionNumberTwo; {:try_start_0 .. :try_end_0} :catch_1
+    # .catch Ljava/lang/NoSuchMethodException; {:try_start_2 .. :try_end_2} :catch_2
+    # .catchall {:try_start_0 .. :try_end_0} :catchall_0
+    for exce in ex:
+        if exce.startswith(".catch "):
+            tmp = exce.split(':')
+            # :catch_X handler a cui si colleghera' la direttiva
+            handler = ':'+tmp[-1]
+            # :try_end_X a cui verra' collegata la direttiva
+            try_block_end = ':'+tmp[-2][:-2]
+
+            # aggiungo il nodo per la direttiva attuale
+            G.add_node(i, istr=normalize_generic_instruction(exce))
+
+            # verifico se la catena di direttive per questo try block esiste gia'
+            if try_block_end in catch_directives:
+                # collego l'ultimo elemento della chain di handler per questo try block al nodo corrente
+                G.add_edge(last_directive_in_chain[try_block_end], i)
+            
+            else: 
+                # se non esiste una catena di direttive per questo try block la creo
+                catch_directives[try_block_end] = i
+
+            # aggiorno il puntatore all'ultimo elemento della chain di handler per questo try block
+            last_directive_in_chain[try_block_end] = i
+
+
+            # verifico se esiste gia' una lista di direttive che usano l'handler usato da questa direttiva
+            if handler in catch_directives:
+                # aggiungo la direttiva attuale alla lista di direttive che fanno uso di questo handler
+                catch_directives[handler].append(i)
+            else:
+                # se non esiste una lista di direttive che usano questo handler (e' la prima direttiva che usa questo handler) la creo
+                catch_directives[handler] = [i]
+            
+
+        elif exce.startswith(".catchall "):
+            raise ValueError("Linea " + exce + " handler non implementato")
+        else:
+            raise ValueError("Linea " + exce + " non valida come exception handler")
+
+            
+        i += 1
+
+
     G.add_node(-1, istr="{method start}")
     G.add_edge(-1, 0)
 
     i = 0
+    
     n_lines = len(li)
 
     goto_backref = {}
+    
 
 
     while i < n_lines:
@@ -223,23 +319,23 @@ def create_method_graph(li):
 
         elif li[i].startswith(":cond_"):
             # aggiungo il nodo per l'istruzione attuale
-            #G.add_node(i, istr=li[i])
+            G.add_node(i, istr=li[i])
 
             # connetto il nodo successivo al :cond_X con il relativo if se esiste, aggiungo un return-void in caso contrario
             conn = [ (x[0], x[1]['reversed']) for x in G.nodes(data=True, default=None) if 'target' in x[1] and x[1]['target'] == li[i] ]
             if len(conn) == 1:
                 for c in conn:
                     if i+1 < n_lines:
-                        G.add_edge(c[0], i+1, direction="negative" if c[1] else "positive")
+                        G.add_edge(c[0], i, direction="negative" if c[1] else "positive")
                     else:
                         G.add_node(i+1, istr="return-void")
-                        G.add_edge(c[0], i+1, direction="negative" if c[1] else "positive")
+                        G.add_edge(c[0], i, direction="negative" if c[1] else "positive")
             else:
                 raise Exception("Errore if, len(conn) =", len(conn))
 
             # connetto con l'istruzione dopo se siste
-            #if i+1 < n_lines:
-            #    G.add_edge(i, i+1)
+            if i+1 < n_lines:
+                G.add_edge(i, i+1)
 
             
         elif li[i].startswith("goto"):
@@ -273,13 +369,38 @@ def create_method_graph(li):
             if i+1 < n_lines:
                 G.add_edge(i, i+1)
 
+        elif li[i].startswith(":try_end_"):
+            # aggiungo il nodo per l'istruzione attuale
+            G.add_node(i, istr=normalize_generic_instruction(li[i]))
+
+            # cerco la catena di direttive per questo try e collego il try
+            G.add_edge(i, catch_directives[li[i]])
+
+             # connetto con l'istruzione dopo se siste
+            if i+1 < n_lines:
+                G.add_edge(i, i+1)
+
+        elif li[i].startswith(":catch_"):
+            # aggiungo il nodo per l'istruzione attuale
+            G.add_node(i, istr=normalize_generic_instruction(li[i]))
+
+            # connetto con le direttive .catch che ne fanno uso
+            for di in catch_directives[li[i]]:
+                G.add_edge(di, i)
+
+            # connetto con l'istruzione dopo se siste
+            if i+1 < n_lines:
+                G.add_edge(i, i+1)
+        
+
+
         elif li[i].startswith(("return", "throw")):
             # creo il nodo
             G.add_node(i, istr=normalize_generic_instruction(li[i]))
             # non connetto da nessuna parte
         else:
             G.add_node(i, istr=normalize_generic_instruction(li[i]))
-            # connetto con l'itruzione dopo se esiste
+            # connetto con l'istruzione dopo se siste
             if i+1 < n_lines:
                 G.add_edge(i, i+1)
                 #print("parsato",  li[i], "creo connessione tra '", li[i], "(" + str(i) + ")", "' e '", i+1, "'")
@@ -288,16 +409,24 @@ def create_method_graph(li):
     return G
 
 if __name__ == '__main__':
+    import pprint as pp
     import matplotlib.pyplot as plt
     from commons import MethodStruct
 
+    def pprint(data):
+        pp.PrettyPrinter(indent=4)
+        pp.pprint(data)
+
     m = MethodStruct("met_1", "V", [])
-    m.instructions = LINES2
+    m.instructions = LINES6
+    m.exceptions = EXCEPT6
 
-    m.method_graph = create_method_graph(m.instructions)
+    m.method_graph = create_method_graph(m.instructions, m.exceptions)
 
-    print(len(m.instructions)+1)
-    print(m.method_graph.number_of_nodes())
+    #print(len(m.instructions)+1)
+    #print(m.method_graph.number_of_nodes())
+
+    pprint(nx.get_node_attributes(m.method_graph, 'istr'))
 
     pos = nx.kamada_kawai_layout(m.method_graph)
     nx.draw_networkx_labels(m.method_graph, pos=pos, labels=nx.get_node_attributes(m.method_graph, 'istr'))

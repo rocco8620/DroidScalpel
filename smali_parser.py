@@ -36,8 +36,10 @@ class SmaliFileParser:
                     j = i+1
                     while j < n_lines and LINES[j] != ".end method":
 
-                        
-                        if LINES[j].startswith(".locals"):
+                        if LINES[j].startswith(".catch"):
+                            # salva le eccezioni per poter poi costruire il grafo
+                            ms.exceptions.append(self.__remove_comment(LINES[j]))
+                        elif LINES[j].startswith(".locals"):
                             pass
                         elif LINES[j].startswith(".line"):
                             pass
@@ -168,3 +170,18 @@ class SmaliFileParser:
     def get_parsed_class(self):
         return self.parsed_class
 
+
+
+
+if __name__ == '__main__':
+
+    cl = SmaliFileParser("droid_scalpel_release_4/smali/android/support/v7/widget/SearchView$AutoCompleteTextViewReflector.smali").get_parsed_class()
+
+    for m in cl.methods:
+        if len(m.exceptions) > 0:
+            print("-----------", m.method_name)
+            for i in m.instructions:
+                print(i)
+            print()
+            for e in m.exceptions:
+                print(e)

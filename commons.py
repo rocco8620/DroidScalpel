@@ -17,6 +17,7 @@ class MethodStruct:
         self.return_type = return_type
         self.arguments = arguments
         self.instructions = []
+        self.exceptions = []
         self.method_graph = None
         self.pickle_file_path = None
 
@@ -28,10 +29,11 @@ class MethodStruct:
         self.return_type = self.method_graph.graph['return_type']
         self.arguments = self.method_graph.graph['arguments']
         self.instructions = None
+        self.exceptions = None
         
     def create_graph(self):
         if self.method_graph == None and self.instructions != None:
-            self.method_graph = create_method_graph(self.instructions)
+            self.method_graph = create_method_graph(self.instructions, self.exceptions)
 
     def save_to_file(self, path):
         # mi assicuro che il grafo esista
