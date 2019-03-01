@@ -111,17 +111,6 @@ LINES2 = [ # qui si spaccano le cose quando abbiamo più di una destinazione di 
 ':cond_3',
 ]
 
-# E' necessario verificare quante linee .catch possono esistere: esistono N linee catch 
-# quante possono puntare allo stesso :catch_X: assumo N
-# se il loro ordine conta: si conta, percio':
-#     - per ogni blocco try:
-#         - si crea una struttura con una catena di nodi che indicano i vari .catch, che parte dal relativo try_end
-#         - si aggiunge un nodo per la direttiva .catchall, se esiste, connesso al relativo try_end
-#
-# vedere: https://stackoverflow.com/questions/14100992/how-does-dalvikvm-handle-switch-and-try-smali-code 
-#
-# esempio:
-# :try_end_0 -> .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0 -> :catch_0
 
 LINES5 = [ 
 'if-nez p1, :cond_0',
@@ -162,13 +151,23 @@ LINES5 = [
 'return-wide v0'
 ]
 
+# E' necessario verificare quante linee .catch possono esistere: esistono N linee catch 
+# quante possono puntare allo stesso :catch_X: assumo N
+# se il loro ordine conta: si conta, percio':
+#     - per ogni blocco try:
+#         - si crea una struttura con una catena di nodi che indicano i vari .catch, che parte dal relativo try_end
+#         - si aggiunge un nodo per la direttiva .catchall, se esiste, connesso al relativo try_end
+#
+# vedere: https://stackoverflow.com/questions/14100992/how-does-dalvikvm-handle-switch-and-try-smali-code 
+#
+# esempio:
+# :try_end_0 -> .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0 -> :catch_0
+
 
 LINES6 = [
-':try_start_0',
-'nothing fancy',
-':try_end_0',
-'return-void',
+'goto :goto_0',
 ':catch_0',
+'meo meo',
 'catcho lo 0',
 'return-void',
 ':catch_1',
@@ -177,8 +176,16 @@ LINES6 = [
 ':catch_2',
 'catcho lo 2',
 'return-void',
-':catch_3',
-'catcho lo 3',
+#':catch_3',
+#'catcho lo 3',
+#'return-void',
+':goto_0',
+':try_start_0',
+'nothing fancy',
+':try_end_0',
+'return-void',
+':catchall_0',
+'pik it allll',
 'return-void',
 ]
 
@@ -186,7 +193,8 @@ EXCEPT6 = [
 '.catch Ljava/lang/cat0; {:try_start_0 .. :try_end_0} :catch_0',
 '.catch Ljava/lang/cat1; {:try_start_0 .. :try_end_0} :catch_1',
 '.catch Ljava/lang/cat2; {:try_start_0 .. :try_end_0} :catch_2',
-'.catch Ljava/lang/cat3; {:try_start_0 .. :try_end_0} :catch_3',
+#'.catch Ljava/lang/cat3; {:try_start_0 .. :try_end_0} :catch_3',
+'.catchall {:try_start_0 .. :try_end_0} :catchall_0',
 ]
 
 import networkx as nx
@@ -238,15 +246,13 @@ def __handle_ifs(graph, line, i, total_instructions):
         raise Exception("Malformed if:", line)
 
 
-def create_method_graph(li, ex):
-    G = nx.DiGraph()
-
-    i = 100000
-
-    # input: ':catch_0' oppure ':try_end_0'
+def __handle_exceptions_directives(graph, i, exception_directives):
+    # input: ':catch_0' oppure ':try_end_0' oppure ':try_end_0_catchall' oppure ':catchall_0'
     # output: <id nodo .catch> 
-    # chiavi ':catch_' -> lista
-    # chiavi ':try_end_' -> int
+    # chiavi ':catch_X' -> lista
+    # chiavi ':try_end_X' -> int
+    # chiavi ':try_end_X_catchall' -> int
+    # chiavi ':catchall_0' -> lista
     catch_directives = {}
     last_directive_in_chain = {}
 
@@ -258,7 +264,7 @@ def create_method_graph(li, ex):
     #  .catch Ljava/lang/MyExceptionNumberTwo; {:try_start_0 .. :try_end_0} :catch_1
     # .catch Ljava/lang/NoSuchMethodException; {:try_start_2 .. :try_end_2} :catch_2
     # .catchall {:try_start_0 .. :try_end_0} :catchall_0
-    for exce in ex:
+    for exce in exception_directives:
         if exce.startswith(".catch "):
             tmp = exce.split(':')
             # :catch_X handler a cui si colleghera' la direttiva
@@ -267,12 +273,12 @@ def create_method_graph(li, ex):
             try_block_end = ':'+tmp[-2][:-2]
 
             # aggiungo il nodo per la direttiva attuale
-            G.add_node(i, istr=normalize_generic_instruction(exce))
+            graph.add_node(i, istr=normalize_generic_instruction(exce))
 
             # verifico se la catena di direttive per questo try block esiste gia'
             if try_block_end in catch_directives:
                 # collego l'ultimo elemento della chain di handler per questo try block al nodo corrente
-                G.add_edge(last_directive_in_chain[try_block_end], i)
+                graph.add_edge(last_directive_in_chain[try_block_end], i)
             
             else: 
                 # se non esiste una catena di direttive per questo try block la creo
@@ -291,13 +297,42 @@ def create_method_graph(li, ex):
                 catch_directives[handler] = [i]
             
 
-        elif exce.startswith(".catchall "):
-            raise ValueError("Linea " + exce + " handler non implementato")
+        elif exce.startswith(".catchall"):
+            #raise ValueError("Linea " + exce + " handler non implementato")
+            tmp = exce.split(':')
+            # :catch_X handler a cui si colleghera' la direttiva
+            handler = ':'+tmp[-1]
+            # :try_end_X a cui verra' collegata la direttiva
+            try_block_end = ':'+tmp[-2][:-2]
+
+            # aggiungo il nodo per la direttiva attuale
+            graph.add_node(i, istr=normalize_generic_instruction(exce))
+
+            # aggiungo la direttiva catchall per questo blocco 
+            catch_directives[try_block_end + '_catchall'] = i
+
+            # verifico se esiste gia' una lista di direttive che usano l'handler usato da questa direttiva
+            if handler in catch_directives:
+                # aggiungo la direttiva attuale alla lista di direttive che fanno uso di questo handler
+                catch_directives[handler].append(i)
+            else:
+                # se non esiste una lista di direttive che usano questo handler (e' la prima direttiva che usa questo handler) la creo
+                catch_directives[handler] = [i]
+
         else:
             raise ValueError("Linea " + exce + " non valida come exception handler")
-
-            
+  
         i += 1
+
+    return catch_directives
+
+
+def create_method_graph(li, ex):
+    G = nx.DiGraph()
+
+    EXCEPTIONS_DIRECTIVES_STARTING_INDEX = 100000
+
+    catch_directives = __handle_exceptions_directives(G, EXCEPTIONS_DIRECTIVES_STARTING_INDEX, ex)
 
 
     G.add_node(-1, istr="{method start}")
@@ -376,15 +411,20 @@ def create_method_graph(li, ex):
             # cerco la catena di direttive per questo try e collego il try
             G.add_edge(i, catch_directives[li[i]])
 
+            # verifico se esiste una direttiva catchall per questo try
+            if li[i] + '_catchall' in catch_directives:
+                # collego il try alla sua direttiva catchall
+                G.add_edge(i, catch_directives[li[i] + '_catchall'])
+
              # connetto con l'istruzione dopo se siste
             if i+1 < n_lines:
                 G.add_edge(i, i+1)
 
-        elif li[i].startswith(":catch_"):
+        elif li[i].startswith((":catch_", ":catchall_")):
             # aggiungo il nodo per l'istruzione attuale
             G.add_node(i, istr=normalize_generic_instruction(li[i]))
 
-            # connetto con le direttive .catch che ne fanno uso
+            # connetto con le direttive .catch o .catchall che ne fanno uso
             for di in catch_directives[li[i]]:
                 G.add_edge(di, i)
 
