@@ -18,6 +18,7 @@ class MethodStruct:
         self.arguments = arguments
         self.instructions = []
         self.exceptions = []
+        self.switches = {}
         self.method_graph = None
         self.pickle_file_path = None
 
@@ -30,10 +31,11 @@ class MethodStruct:
         self.arguments = self.method_graph.graph['arguments']
         self.instructions = None
         self.exceptions = None
+        self.switches = None
         
     def create_graph(self):
-        if self.method_graph == None and self.instructions != None:
-            self.method_graph = create_method_graph(self.instructions, self.exceptions)
+        if self.method_graph == None and self.instructions != None and self.exceptions != None and self.switches != None:
+            self.method_graph = create_method_graph(self.instructions, self.exceptions, self.switches)
 
     def save_to_file(self, path):
         # mi assicuro che il grafo esista

@@ -5,6 +5,7 @@ class SmaliFileParser:
         self.file_path = file_path
 
         IGNORED_LINES = ("#", ".source", ".implements", ".field", ".end field")
+        IGNORED_LINES_IN_METHOD = (".locals", ".line", "nop")
 
         self.parsed_class = None
 
@@ -38,10 +39,8 @@ class SmaliFileParser:
 
                         if LINES[j].startswith(".catch"):
                             # salva le eccezioni per poter poi costruire il grafo
-                            ms.exceptions.append(self.__remove_comment(LINES[j]))
-                        elif LINES[j].startswith(".locals"):
-                            pass
-                        elif LINES[j].startswith(".line"):
+                            ms.exceptions.append(LINES[j])
+                        elif LINES[j].startswith(IGNORED_LINES_IN_METHOD):
                             pass
                         elif LINES[j].startswith(".param"):
                             # consuma le righe dei parametri poiche' ora non ci interessano
@@ -55,8 +54,24 @@ class SmaliFileParser:
                             while k < n_lines and LINES[k] != ".end annotation":
                                 k += 1
                             j = k
-                        else:
+                        elif LINES[j].startswith((":pswitch_data_", ":sswitch_data_")):
+                            # parsa il contenuto dello .packed-switch o .sparse-switch
+                            tmp = []
+                            # salta la prima riga
+                            k = j+2
+                            while k < n_lines and not LINES[k].startswith((".end packed-switch", ".end sparse-switch")):
+                                label = ':'+LINES[k].split(':')[1]
+                                tmp.append(label)
+                                k += 1
+
+                            ms.switches[LINES[j]] = list(set(tmp))
+                            j = k
+                        elif LINES[j].startswith(("const")):
+                            # rimuovo i commenti nelle istruzioni che le contengono
                             ms.instructions.append(self.__remove_comment(LINES[j]))
+                        else:
+                            # istruzione generica che non ha nessun tipo di handling specifico
+                            ms.instructions.append(LINES[j])
                         j += 1
 
                     self.parsed_class.methods.append(ms)
@@ -175,13 +190,16 @@ class SmaliFileParser:
 
 if __name__ == '__main__':
 
-    cl = SmaliFileParser("droid_scalpel_release_4/smali/android/support/v7/widget/SearchView$AutoCompleteTextViewReflector.smali").get_parsed_class()
+    cl = SmaliFileParser("McDonald\'s_com.mcdonalds.mobileapp/smali/android/support/v7/app/l.smali").get_parsed_class()
+
+    print(len(cl.methods))
 
     for m in cl.methods:
-        if len(m.exceptions) > 0:
+        if len(m.switches) > 0:
             print("-----------", m.method_name)
             for i in m.instructions:
                 print(i)
             print()
-            for e in m.exceptions:
+            for e in m.switches:
                 print(e)
+                print("   ", m.switches[e])

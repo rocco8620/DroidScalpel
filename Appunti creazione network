@@ -67,7 +67,20 @@ packed-switch
 sparse-switch
 
 Cose varie:
-Verificare attributo 'varargs' dei methodi
+- Verificare attributo 'varargs' dei methodi
+- Scrivere unit-test per il creatore di grafi di metodi
+- Aggiungere comparazione ricorsiva delle funzioni nel codice
+- Aggiungere semplificatore di grafici per rimuovere i nodi di supporto come ':goto_X' e ':cond_X'
+- Aggungere gestione dei blocchi ':array_X'
+- Integrare backsmali per non inserire i commenti e togliere il codice che rimuove i commenti 
 
 
 Cose da ignorare nelle comparazioni:
+
+Ottimizzazioni:
+Aggiungere il multithreading per il parsing dei file smali
+
+
+
+
+

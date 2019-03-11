@@ -197,6 +197,85 @@ EXCEPT6 = [
 '.catchall {:try_start_0 .. :try_end_0} :catchall_0',
 ]
 
+LINES7 = [
+'invoke-direct {p0, p1}, Landroid/support/v7/app/l;->h(I)I',
+'move-result p1',
+'iget-boolean v0, p0, Landroid/support/v7/app/l;->l:Z',
+'const/4 v1, 0x0',
+'if-eqz v0, :cond_0',
+'const/16 v0, 0x6c',
+'if-ne p1, v0, :cond_0',
+'return v1',
+':cond_0',
+'iget-boolean v0, p0, Landroid/support/v7/app/l;->h:Z',
+'const/4 v2, 0x1',
+'if-eqz v0, :cond_1',
+'if-ne p1, v2, :cond_1',
+'iput-boolean v1, p0, Landroid/support/v7/app/l;->h:Z',
+':cond_1',
+'sparse-switch p1, :sswitch_data_0',
+'iget-object v0, p0, Landroid/support/v7/app/l;->b:Landroid/view/Window;',
+'invoke-virtual {v0, p1}, Landroid/view/Window;->requestFeature(I)Z',
+'move-result p1',
+'return p1',
+':sswitch_0',
+'invoke-direct {p0}, Landroid/support/v7/app/l;->A()V',
+'iput-boolean v2, p0, Landroid/support/v7/app/l;->i:Z',
+'return v2',
+':sswitch_1',
+'invoke-direct {p0}, Landroid/support/v7/app/l;->A()V',
+'iput-boolean v2, p0, Landroid/support/v7/app/l;->h:Z',
+'return v2',
+':sswitch_2',
+'invoke-direct {p0}, Landroid/support/v7/app/l;->A()V',
+'iput-boolean v2, p0, Landroid/support/v7/app/l;->j:Z',
+'return v2',
+':sswitch_3',
+'invoke-direct {p0}, Landroid/support/v7/app/l;->A()V',
+'iput-boolean v2, p0, Landroid/support/v7/app/l;->C:Z',
+'return v2',
+':sswitch_4',
+'invoke-direct {p0}, Landroid/support/v7/app/l;->A()V',
+'iput-boolean v2, p0, Landroid/support/v7/app/l;->B:Z',
+'return v2',
+':sswitch_5',
+'invoke-direct {p0}, Landroid/support/v7/app/l;->A()V',
+'iput-boolean v2, p0, Landroid/support/v7/app/l;->l:Z',
+'return v2',
+]
+
+SWITCH7 = { ':sswitch_data_0':
+    [':sswitch_2', ':sswitch_1', ':sswitch_4', ':sswitch_5', ':sswitch_0', ':sswitch_3']
+}
+
+# Analisi per quanto riguarda gli sparse switch:
+# https://stackoverflow.com/questions/19855800/difference-between-packed-switch-and-sparse-switch-dalvik-opcode
+# 
+# :pswitch_data_0
+# .packed-switch 0xb
+#     :pswitch_6
+#     :pswitch_5
+#     :pswitch_4
+#     :pswitch_3
+#     :pswitch_2
+#     :pswitch_1
+#     :pswitch_0
+# .end packed-switch
+#
+# :sswitch_data_0
+# .sparse-switch
+#     0x1 -> :sswitch_5
+#     0x2 -> :sswitch_4
+#     0x5 -> :sswitch_3
+#     0xa -> :sswitch_2
+#     0x6c -> :sswitch_1
+#     0x6d -> :sswitch_0
+# .end sparse-switch
+#    
+# Va aggiunto il codice per inserire nel membro "switches" i payload degli switch del metodo in modod da analizzarli successivamente
+#
+#
+
 import networkx as nx
 from instruction_normalizer import normalize_generic_instruction
 
@@ -324,16 +403,18 @@ def __handle_exceptions_directives(graph, i, exception_directives):
   
         i += 1
 
-    return catch_directives
+    return catch_directives, i
 
+# Possibili ottimizzazioni:
+# - Rendere tutte le ricerche dei target dei salti usando dei dizionari al posto che andare a vedere gli attributi del nodo
 
-def create_method_graph(li, ex):
+def create_method_graph(li, ex, sw):
     G = nx.DiGraph()
 
-    EXCEPTIONS_DIRECTIVES_STARTING_INDEX = 100000
+    DIRECTIVES_STARTING_INDEX = 100000
 
-    catch_directives = __handle_exceptions_directives(G, EXCEPTIONS_DIRECTIVES_STARTING_INDEX, ex)
-
+    catch_directives, _ = __handle_exceptions_directives(G, DIRECTIVES_STARTING_INDEX, ex)
+    
 
     G.add_node(-1, istr="{method start}")
     G.add_edge(-1, 0)
@@ -344,6 +425,7 @@ def create_method_graph(li, ex):
 
     goto_backref = {}
     
+    switch_references = {}
 
 
     while i < n_lines:
@@ -356,17 +438,17 @@ def create_method_graph(li, ex):
             # aggiungo il nodo per l'istruzione attuale
             G.add_node(i, istr=li[i])
 
-            # connetto il nodo successivo al :cond_X con il relativo if se esiste, aggiungo un return-void in caso contrario
+            # connetto il nodo successivo al :cond_X con il relativo if se esiste
             conn = [ (x[0], x[1]['reversed']) for x in G.nodes(data=True, default=None) if 'target' in x[1] and x[1]['target'] == li[i] ]
-            if len(conn) == 1:
+            if len(conn) <= 2:
                 for c in conn:
                     if i+1 < n_lines:
                         G.add_edge(c[0], i, direction="negative" if c[1] else "positive")
                     else:
-                        G.add_node(i+1, istr="return-void")
+                        #G.add_node(i+1, istr="return-void")
                         G.add_edge(c[0], i, direction="negative" if c[1] else "positive")
             else:
-                raise Exception("Errore if, len(conn) =", len(conn))
+                raise Exception("Errore if, len(conn) = " + str(len(conn)) + ", conn = " + str(conn))
 
             # connetto con l'istruzione dopo se siste
             if i+1 < n_lines:
@@ -400,9 +482,10 @@ def create_method_graph(li, ex):
                 # lo aggiungo alla lista dei backreference
                 goto_backref[li[i]] = i
 
-            # connetto con l'istruzione dopo se siste
+            # connetto con l'istruzione dopo se esiste, senno' aggiungo un return-void 
             if i+1 < n_lines:
                 G.add_edge(i, i+1)
+
 
         elif li[i].startswith(":try_end_"):
             # aggiungo il nodo per l'istruzione attuale
@@ -432,12 +515,48 @@ def create_method_graph(li, ex):
             if i+1 < n_lines:
                 G.add_edge(i, i+1)
         
+        elif li[i].startswith(("sparse-switch", "packed-switch")):
+            # aggiungo il nodo per l'istruzione attuale
+            G.add_node(i, istr=normalize_generic_instruction(li[i]))
+            t = ':'+li[i].split(':')[1]
+
+            # connetto con tutti i salti dello switch fino ad ora conosciuti
+            for target in sw[t]:
+                if target in switch_references:
+                    # creo arco tra nodo corrente (istruzione switch) e possibile target switch 
+                    G.add_edge(i, switch_references[target])
+                else:
+                    # salvo il numero del nodo dell'attuale istruzione switch
+                    switch_references[target] = i
+
+
+            # connetto con l'istruzione dopo se siste
+            if i+1 < n_lines:
+                G.add_edge(i, i+1)
+
+        elif li[i].startswith((":sswitch_", ":pswitch_")):
+            # aggiungo il nodo per l'istruzione attuale
+            G.add_node(i, istr=normalize_generic_instruction(li[i]))
+
+            # verifico se l'istruzione switch per questo target switch e' gia' stata incontrata
+            if li[i] in switch_references:
+                # creo arco tra nodo corrente (target switch) e istruzione switch
+                G.add_edge(i, switch_references[target])
+            else:
+                # se l'istruzione switch per questo target switch non e' ancora nota 
+                # salvo il numero del nodo nel dizionario
+                switch_references[li[i]] = i
+
+            # connetto con l'istruzione dopo se siste
+            if i+1 < n_lines:
+                G.add_edge(i, i+1)
 
 
         elif li[i].startswith(("return", "throw")):
             # creo il nodo
             G.add_node(i, istr=normalize_generic_instruction(li[i]))
             # non connetto da nessuna parte
+
         else:
             G.add_node(i, istr=normalize_generic_instruction(li[i]))
             # connetto con l'istruzione dopo se siste
@@ -446,6 +565,12 @@ def create_method_graph(li, ex):
                 #print("parsato",  li[i], "creo connessione tra '", li[i], "(" + str(i) + ")", "' e '", i+1, "'")
         i += 1
 
+    if not li[n_lines-1].startswith(("return", "throw")):
+        G.add_node(n_lines, istr="return-void")
+        G.add_edge(n_lines-1, n_lines)
+
+
+    pprint(switch_references)
     return G
 
 if __name__ == '__main__':
@@ -458,10 +583,11 @@ if __name__ == '__main__':
         pp.pprint(data)
 
     m = MethodStruct("met_1", "V", [])
-    m.instructions = LINES6
-    m.exceptions = EXCEPT6
+    m.instructions = LINES7
+    m.exceptions = []
+    m.switches = SWITCH7
 
-    m.method_graph = create_method_graph(m.instructions, m.exceptions)
+    m.method_graph = create_method_graph(m.instructions, m.exceptions, m.switches)
 
     #print(len(m.instructions)+1)
     #print(m.method_graph.number_of_nodes())
