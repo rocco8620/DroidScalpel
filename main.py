@@ -1,3 +1,6 @@
+import pyximport
+pyximport.install()
+
 import os
 from glob import glob
 
@@ -21,6 +24,8 @@ def main():
     for x in out[0:5]:
         for y in x.methods:
             y.create_graph()
+
+
 
 
 import cProfile

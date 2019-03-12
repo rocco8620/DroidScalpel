@@ -405,32 +405,6 @@ def __handle_exceptions_directives(graph, i, exception_directives):
 
     return catch_directives, i
 
-def __remove_helper_nodes(graph, n_of_nodes):
-
-    REMOVED_NODES = (":cond_", ":goto_", ":sswitch_", ":pswitch_")
-
-    i = 0
-    istructions = nx.get_node_attributes(graph, 'istr')
-    directions = nx.get_edge_attributes(graph, 'direction')
-    pprint(directions)
-
-    while i < n_of_nodes:
-        if istructions[i].startswith(REMOVED_NODES):
-            # sposto tutti gli archi al nodo corrente verso il nodo al quale è collegato il nodo corrente
-            print(i, end = "")
-            for x in graph.in_edges(i):
-                print(x[0], end = "")
-            print()
-
-        #print(graph[i])
-        #for x in graph[i]:
-        #    print(x, end=" ")
-
-        #print()
-
-        i += 1
-
-
 
     # rimuove i nodi di tipo:
     # - :cond_X

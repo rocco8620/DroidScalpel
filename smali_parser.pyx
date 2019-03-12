@@ -96,7 +96,8 @@ class SmaliFileParser:
                 i = j
 
             else:
-                print("UNKNOWN LINE: " + LINES[i])
+                pass
+                #print("UNKNOWN LINE: " + LINES[i])
 
             i += 1
 
