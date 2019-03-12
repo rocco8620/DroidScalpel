@@ -405,6 +405,42 @@ def __handle_exceptions_directives(graph, i, exception_directives):
 
     return catch_directives, i
 
+def __remove_helper_nodes(graph, n_of_nodes):
+
+    REMOVED_NODES = (":cond_", ":goto_", ":sswitch_", ":pswitch_")
+
+    i = 0
+    istructions = nx.get_node_attributes(graph, 'istr')
+    directions = nx.get_edge_attributes(graph, 'direction')
+    pprint(directions)
+
+    while i < n_of_nodes:
+        if istructions[i].startswith(REMOVED_NODES):
+            # sposto tutti gli archi al nodo corrente verso il nodo al quale è collegato il nodo corrente
+            print(i, end = "")
+            for x in graph.in_edges(i):
+                print(x[0], end = "")
+            print()
+
+        #print(graph[i])
+        #for x in graph[i]:
+        #    print(x, end=" ")
+
+        #print()
+
+        i += 1
+
+
+
+    # rimuove i nodi di tipo:
+    # - :cond_X
+    # - :goto_X
+    # - :sswitch_X
+    # - :pswitch_X
+    # - goto
+    # - if-X
+    
+
 # Possibili ottimizzazioni:
 # - Rendere tutte le ricerche dei target dei salti usando dei dizionari al posto che andare a vedere gli attributi del nodo
 
@@ -541,7 +577,7 @@ def create_method_graph(li, ex, sw):
             # verifico se l'istruzione switch per questo target switch e' gia' stata incontrata
             if li[i] in switch_references:
                 # creo arco tra nodo corrente (target switch) e istruzione switch
-                G.add_edge(i, switch_references[target])
+                G.add_edge(switch_references[target], i)
             else:
                 # se l'istruzione switch per questo target switch non e' ancora nota 
                 # salvo il numero del nodo nel dizionario
@@ -569,8 +605,7 @@ def create_method_graph(li, ex, sw):
         G.add_node(n_lines, istr="return-void")
         G.add_edge(n_lines-1, n_lines)
 
-
-    pprint(switch_references)
+    #__remove_helper_nodes(G, i)
     return G
 
 if __name__ == '__main__':

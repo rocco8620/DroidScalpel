@@ -8,15 +8,29 @@ from method_graph_comparer import are_methods_graph_equals
 PATH = 'McDonald\'s_com.mcdonalds.mobileapp/smali'
 #PATH = 'droid_scalpel_release_4/smali'
 
+def main():
 
-files = [y for x in os.walk(PATH) for y in glob(os.path.join(x[0], '*.smali'))]
+    files = [y for x in os.walk(PATH) for y in glob(os.path.join(x[0], '*.smali'))]
 
-out = []
+    out = []
 
-for x in files:
-    #print (x)
-    out.append(SmaliFileParser(x).get_parsed_class())
+    for x in files:
+        #print (x)
+        out.append(SmaliFileParser(x).get_parsed_class())
 
+    for x in out[0:5]:
+        for y in x.methods:
+            y.create_graph()
+
+
+import cProfile
+
+pr = cProfile.Profile()
+pr.enable()
+main()
+pr.disable()
+pr.print_stats(sort='time')
+'''
 
 #out = [SmaliFileParser("droid_scalpel_release_4/smali/okhttp3/Response$Builder.smali").get_parsed_class()]
 #out = [SmaliFileParser("McDonald's_com.mcdonalds.mobileapp/smali/okhttp3/ac$a.smali").get_parsed_class()]
@@ -25,6 +39,8 @@ matching = 0
 
 # File path: droid_scalpel_release_3-orig/smali/android/support/v4/internal/view/SupportMenuItem.smali
 # Method name: getNumericModifiers
+
+
 
 unk = MethodStruct()
 unk.load_from_file('/tmp/a/unk.gz')
@@ -38,7 +54,7 @@ for c in out:
             if are_methods_graph_equals(unk.method_graph, m.method_graph):
                 print("Match:", m.method_name, "", unk.return_type, "", m.return_type, "", unk.arguments, "", m.arguments)
         
-
+'''
 '''
 for c in out:
     for m in c.methods:

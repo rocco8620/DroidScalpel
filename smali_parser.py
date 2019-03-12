@@ -9,7 +9,7 @@ class SmaliFileParser:
 
         self.parsed_class = None
 
-        LINES = [ l.strip('\r ') for l in open(self.file_path, 'r').read().split('\n') if len(l) > 2 ]
+        LINES = [ l.rstrip('\r ') for l in open(self.file_path, 'r').read().split('\n') if len(l) > 2 ]
         #for x in LINES: print(x)
         n_lines = len(LINES)
         i = 0
