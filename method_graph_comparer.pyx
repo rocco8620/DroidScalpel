@@ -1,3 +1,4 @@
+# cython: language_level=3
 LINES = [
 'iget-object v0, p2, Lokhttp3/Response;->body:Lokhttp3/ResponseBody;',
 'if-nez v0, :cond_3',

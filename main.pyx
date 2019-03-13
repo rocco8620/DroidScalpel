@@ -1,5 +1,4 @@
-import pyximport
-pyximport.install()
+# cython: language_level=3
 
 import os
 from glob import glob
@@ -24,6 +23,7 @@ def main():
     for x in out[0:5]:
         for y in x.methods:
             y.create_graph()
+            y.save_to_file("/tmp/a.tgz")
 
 
 

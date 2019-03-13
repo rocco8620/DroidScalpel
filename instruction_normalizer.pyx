@@ -1,3 +1,4 @@
+# cython: language_level=3
 # InstructionSintetizer
 LINES = [
 'iget-object v0, p2, Lokhttp3/Response;->body:Lokhttp3/ResponseBody;',
@@ -104,7 +105,7 @@ def __get_argument_list(arguments):
 
 
 def normalize_generic_instruction(li):
-    return li
+    #return li
 
     # iget-object v0, p2, Lokhttp3/Response;->body:[[Lokhttp3/ResponseBody;
     # iget p1, p0, Lio/fabric/sdk/android/services/c/b;->e:I
@@ -198,7 +199,8 @@ def normalize_generic_instruction(li):
         return l[0] + ' {' + arguments + '}, ' + object_class + ';->' + method_name + '(' + arguments_types + ')' + return_value
 
     else:
-        raise RuntimeError("Linea non riconosciuta: " + li)
+        return "Not implemented"
+        #raise RuntimeError("Linea non riconosciuta: " + li)
 
             
 if __name__ == '__main__':

@@ -1,3 +1,4 @@
+# cython: language_level=3
 from commons import ClassStruct, MethodStruct
 
 class SmaliFileParser:
@@ -9,10 +10,12 @@ class SmaliFileParser:
 
         self.parsed_class = None
 
-        LINES = [ l.rstrip('\r ') for l in open(self.file_path, 'r').read().split('\n') if len(l) > 2 ]
+        LINES = [ l.strip('\r ') for l in open(self.file_path, 'r').read().split('\n') if len(l) > 2 ]
         #for x in LINES: print(x)
-        n_lines = len(LINES)
-        i = 0
+        cdef int n_lines = len(LINES)
+        cdef int i = 0
+        cdef int j = 0
+        cdef int k = 0
 
         while i < n_lines:
             if LINES[i].startswith(IGNORED_LINES):
@@ -96,8 +99,7 @@ class SmaliFileParser:
                 i = j
 
             else:
-                pass
-                #print("UNKNOWN LINE: " + LINES[i])
+                print("UNKNOWN LINE: " + LINES[i])
 
             i += 1
 

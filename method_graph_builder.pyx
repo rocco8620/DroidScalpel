@@ -1,3 +1,4 @@
+# cython: language_level=3
 LINES = [
 'iget-object v0, p2, Lokhttp3/Response;->body:Lokhttp3/ResponseBody;',
 'if-nez v0, :cond_3',
@@ -421,7 +422,7 @@ def __handle_exceptions_directives(graph, i, exception_directives):
 def create_method_graph(li, ex, sw):
     G = nx.DiGraph()
 
-    DIRECTIVES_STARTING_INDEX = 100000
+    cdef int DIRECTIVES_STARTING_INDEX = 100000
 
     catch_directives, _ = __handle_exceptions_directives(G, DIRECTIVES_STARTING_INDEX, ex)
     
@@ -429,9 +430,9 @@ def create_method_graph(li, ex, sw):
     G.add_node(-1, istr="{method start}")
     G.add_edge(-1, 0)
 
-    i = 0
+    cdef int i = 0
     
-    n_lines = len(li)
+    cdef int n_lines = len(li)
 
     goto_backref = {}
     

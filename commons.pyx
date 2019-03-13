@@ -1,3 +1,4 @@
+# cython: language_level=3
 import networkx as nx
 from method_graph_builder import create_method_graph
 
