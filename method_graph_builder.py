@@ -406,23 +406,27 @@ def __handle_exceptions_directives(graph, i, exception_directives):
     return catch_directives, i
 
 def __remove_helper_nodes(graph, n_of_nodes):
+    # rimuove i nodi di tipo:
+    # - :cond_X
+    # - :goto_X
+    # - :sswitch_X
+    # - :pswitch_X
+    # - goto
 
-    REMOVED_NODES = (":cond_", ":goto_", ":sswitch_", ":pswitch_")
+    REMOVED_NODES = (":cond_", ":goto_", ":sswitch_", ":pswitch_", "goto")
 
     i = 0
     istructions = nx.get_node_attributes(graph, 'istr')
     directions = nx.get_edge_attributes(graph, 'direction')
-    pprint(directions)
 
     while i < n_of_nodes:
         if istructions[i].startswith(REMOVED_NODES):
             # sposto tutti gli archi che vanno verso il nodo corrente al nodo al quale è collegato il nodo corrente
-            print(i)
 
             tmp = graph.out_edges(i)
 
             if len(tmp) != 1:
-                raise RuntimeError("Numero di archi in partenza da '" + instructions[i] + "'' diverso da 1")
+                raise RuntimeError("Numero di archi in partenza da '" + istructions[i] + "'' diverso da 1")
 
             next_node = list(tmp)[0][1]
             for x in graph.in_edges(i):
@@ -437,14 +441,6 @@ def __remove_helper_nodes(graph, n_of_nodes):
         i += 1
 
 
-
-    # rimuove i nodi di tipo:
-    # - :cond_X
-    # - :goto_X
-    # - :sswitch_X
-    # - :pswitch_X
-    # - goto
-    # - if-X
     
 
 # Possibili ottimizzazioni:
@@ -500,7 +496,7 @@ def create_method_graph(li, ex, sw):
         elif li[i].startswith("goto"):
             # aggiungo il nodo per l'istruzione attuale
             t = ':'+li[i].split(':')[1]
-            G.add_node(i, istr=normalize_generic_instruction(li[i]), target=t)
+            G.add_node(i, istr=li[i], target=t)
 
             # non connetto all'istruzione successiva
 
@@ -511,7 +507,7 @@ def create_method_graph(li, ex, sw):
 
         elif li[i].startswith(":goto_"):
             # aggiungo il nodo per l'istruzione attuale
-            G.add_node(i, istr=normalize_generic_instruction(li[i]))
+            G.add_node(i, istr=li[i])
 
             # connetto con il relativo goto se esiste
             conn = [ x[0] for x in G.nodes(data='target', default=None) if x[1] == li[i] ]
@@ -578,7 +574,7 @@ def create_method_graph(li, ex, sw):
 
         elif li[i].startswith((":sswitch_", ":pswitch_")):
             # aggiungo il nodo per l'istruzione attuale
-            G.add_node(i, istr=normalize_generic_instruction(li[i]))
+            G.add_node(i, istr=li[i])
 
             # verifico se l'istruzione switch per questo target switch e' gia' stata incontrata
             if li[i] in switch_references:
@@ -624,9 +620,9 @@ if __name__ == '__main__':
         pp.pprint(data)
 
     m = MethodStruct("met_1", "V", [])
-    m.instructions = LINES7
-    m.exceptions = []
-    m.switches = SWITCH7
+    m.instructions = LINES6
+    m.exceptions = EXCEPT6
+    m.switches = {}
 
     m.method_graph = create_method_graph(m.instructions, m.exceptions, m.switches)
 
@@ -634,6 +630,7 @@ if __name__ == '__main__':
     #print(m.method_graph.number_of_nodes())
 
     pprint(nx.get_node_attributes(m.method_graph, 'istr'))
+    pprint(m.method_graph.nodes())
 
     pos = nx.kamada_kawai_layout(m.method_graph)
 

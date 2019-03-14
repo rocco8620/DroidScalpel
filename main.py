@@ -9,6 +9,7 @@ PATH = 'McDonald\'s_com.mcdonalds.mobileapp/smali'
 #PATH = 'droid_scalpel_release_4/smali'
 
 def main():
+    tot_m = 0
 
     files = [y for x in os.walk(PATH) for y in glob(os.path.join(x[0], '*.smali'))]
 
@@ -18,9 +19,12 @@ def main():
         #print (x)
         out.append(SmaliFileParser(x).get_parsed_class())
 
-    for x in out[0:5]:
+    for x in out:
         for y in x.methods:
+            tot_m += 1
             y.create_graph()
+
+    print("Parsed methods:", tot_m)
 
 
 import cProfile

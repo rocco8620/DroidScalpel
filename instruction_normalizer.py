@@ -104,7 +104,6 @@ def __get_argument_list(arguments):
 
 
 def normalize_generic_instruction(li):
-    return li
 
     # iget-object v0, p2, Lokhttp3/Response;->body:[[Lokhttp3/ResponseBody;
     # iget p1, p0, Lio/fabric/sdk/android/services/c/b;->e:I
@@ -123,17 +122,33 @@ def normalize_generic_instruction(li):
         return li[0] + ' rr, rr, ' + object_class + ';->' + attribute_name + ':' + attribute_type + ';'
 
 
-    # new-instance p2, Ljava/lang/IllegalArgumentException;
-    elif li.startswith("new-instance"):
-        li = li.split(",")
-        class_name, _ = __get_type(li[1].strip())
+    # sput-object v0, Lb/a;->b:Lb/b$a;
+    # sput-object v0, Landroid/support/coordinatorlayout/R$styleable;->GradientColorItem:[I
+    # sput-object p0, Landroid/support/v4/os/LocaleListHelper;->sDefaultAdjustedLocaleList:Landroid/support/v4/os/LocaleListHelper;
+    elif li.startswith(("sget", "sput")):
+            li = li.split(" ")
+            tmp = li[-1].split(":") 
+            attribute_type, _ = __get_type(tmp[1])
+            tmp = tmp[0].split("->")
+            object_class, is_java = __get_type(tmp[0])
+            # se la classe e' java/android mantengo il nome dell'attributo
+            attribute_name = tmp[1] if is_java else 'attr'
 
-        return 'new-instance rr, ' + class_name + ';'
+            return li[0] + ' rr, ' + object_class + ';->' + attribute_name + ':' + attribute_type + ';'
+
+
+
+    # new-instance p2, Ljava/lang/IllegalArgumentException;
+    # check-cast v0, Ljava/util/Map$Entry;
+    elif li.startswith(("new-instance", "check-cast")):
+        l = li.split(" ")
+        class_name, _ = __get_type(l[2].strip())
+
+        return l[0] + ' rr, ' + class_name + ';'
 
     # if-ltz r0, target
     # if-gt p1, p2, target
     elif li.startswith("if-"):
-
         return li.split(' ')[0]
 
     # return-object p0
@@ -147,20 +162,33 @@ def normalize_generic_instruction(li):
     # const/16 v3, 0x270
     elif li.startswith("const"):
         tmp = li.split(' ')
-        return tmp[0] + ' rr, ' + tmp[-1]
+        return tmp[0] + ' rr, ' + ' '.join(tmp[2:])
 
     # move-object/from16 v0, p0
     # move-result v0
     # move-exception p1
     elif li.startswith("move"):
         tmp = li.split(' ')
-        return tmp[0] + ' rr, ' + tmp[-1]
+        return tmp[0] + ' rr'
 
     elif li.startswith(":cond_"):
         return ':cond_x'
 
     elif li.startswith(":goto_"):
         return ':goto_x'
+
+    elif li.startswith(":catch_"):
+        return ':catch_x'
+
+    elif li.startswith(":try_start_"):
+        return ':try_start_x'
+
+    elif li.startswith(":try_end_"):
+        return ':try_end_x'
+
+    elif li.startswith(("shl-", "xor-", "sub-", "mul-", "add-", "div-", "rem-", "and-", "or-", "shr-", "ushr-", "aget-")):
+        l = li.split(' ')
+        return l[0]
 
     elif li.startswith("throw"):
         return 'throw rr'
@@ -196,6 +224,18 @@ def normalize_generic_instruction(li):
             arguments = ''
 
         return l[0] + ' {' + arguments + '}, ' + object_class + ';->' + method_name + '(' + arguments_types + ')' + return_value
+
+    # .catch Ljava/lang/cat0; {:try_start_0 .. :try_end_0} :catch_0
+    elif li.startswith(".catch"):
+        tmp = li.split(' ')
+        exception_class, _ = __get_type(tmp[1])
+
+        return tmp[0] + ' ' + exception_class + '{:try_start_x .. :try_end_x} :catch_x'
+
+    # .catchall {:try_start_0 .. :try_end_0} :catchall_0
+    elif li.startswith(".catchall"):
+        return '.catchall {:try_start_x .. :try_end_x} :catchall_x'
+    
 
     else:
         raise RuntimeError("Linea non riconosciuta: " + li)
