@@ -416,17 +416,23 @@ def __remove_helper_nodes(graph, n_of_nodes):
 
     while i < n_of_nodes:
         if istructions[i].startswith(REMOVED_NODES):
-            # sposto tutti gli archi al nodo corrente verso il nodo al quale è collegato il nodo corrente
-            print(i, end = "")
+            # sposto tutti gli archi che vanno verso il nodo corrente al nodo al quale è collegato il nodo corrente
+            print(i)
+
+            tmp = graph.out_edges(i)
+
+            if len(tmp) != 1:
+                raise RuntimeError("Numero di archi in partenza da '" + instructions[i] + "'' diverso da 1")
+
+            next_node = list(tmp)[0][1]
             for x in graph.in_edges(i):
-                print(x[0], end = "")
-            print()
+                back_node = x[0]
+                if x in directions:
+                    graph.add_edge(back_node, next_node, direction=directions[x])
+                else:
+                    graph.add_edge(back_node, next_node)
 
-        #print(graph[i])
-        #for x in graph[i]:
-        #    print(x, end=" ")
-
-        #print()
+            graph.remove_node(i)
 
         i += 1
 
@@ -605,7 +611,7 @@ def create_method_graph(li, ex, sw):
         G.add_node(n_lines, istr="return-void")
         G.add_edge(n_lines-1, n_lines)
 
-    #__remove_helper_nodes(G, i)
+    __remove_helper_nodes(G, i)
     return G
 
 if __name__ == '__main__':
@@ -630,6 +636,7 @@ if __name__ == '__main__':
     pprint(nx.get_node_attributes(m.method_graph, 'istr'))
 
     pos = nx.kamada_kawai_layout(m.method_graph)
+
     nx.draw_networkx_labels(m.method_graph, pos=pos, labels=nx.get_node_attributes(m.method_graph, 'istr'))
     nx.draw_networkx_edge_labels(m.method_graph, pos=pos, labels=nx.get_edge_attributes(m.method_graph, 'direction'))
 
