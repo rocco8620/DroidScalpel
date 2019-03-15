@@ -104,7 +104,7 @@ def __get_argument_list(arguments):
 
 
 def normalize_generic_instruction(li):
-
+    return li
     # iget-object v0, p2, Lokhttp3/Response;->body:[[Lokhttp3/ResponseBody;
     # iget p1, p0, Lio/fabric/sdk/android/services/c/b;->e:I
     # iput-short v2, v12, Lcom/ibm/icu/text/am;->e:S

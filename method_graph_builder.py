@@ -426,7 +426,15 @@ def __remove_helper_nodes(graph, n_of_nodes):
             tmp = graph.out_edges(i)
 
             if len(tmp) != 1:
-                raise RuntimeError("Numero di archi in partenza da '" + istructions[i] + "'' diverso da 1")
+                import matplotlib.pyplot as plt
+                pos = nx.kamada_kawai_layout(graph)
+
+                nx.draw_networkx_labels(graph, pos=pos, labels=nx.get_node_attributes(graph, 'istr'))
+                nx.draw_networkx_edge_labels(graph, pos=pos, labels=nx.get_edge_attributes(graph, 'direction'))
+
+                nx.draw_kamada_kawai(graph)
+                plt.show()
+                raise RuntimeError("Numero di archi in partenza da '" + istructions[i] + "' diverso da 1 (sono " + str(len(tmp)) + ", ovvero " + str(tmp) + ")")
 
             next_node = list(tmp)[0][1]
             for x in graph.in_edges(i):
@@ -452,7 +460,8 @@ def create_method_graph(li, ex, sw):
     DIRECTIVES_STARTING_INDEX = 100000
 
     catch_directives, _ = __handle_exceptions_directives(G, DIRECTIVES_STARTING_INDEX, ex)
-    
+    #print(ex)
+    #print(catch_directives)
 
     G.add_node(-1, istr="{method start}")
     G.add_edge(-1, 0)
@@ -476,17 +485,17 @@ def create_method_graph(li, ex, sw):
             # aggiungo il nodo per l'istruzione attuale
             G.add_node(i, istr=li[i])
 
-            # connetto il nodo successivo al :cond_X con il relativo if se esiste
+            # connetto il nodo corrente con il relativo if se esiste
             conn = [ (x[0], x[1]['reversed']) for x in G.nodes(data=True, default=None) if 'target' in x[1] and x[1]['target'] == li[i] ]
-            if len(conn) <= 2:
-                for c in conn:
-                    if i+1 < n_lines:
-                        G.add_edge(c[0], i, direction="negative" if c[1] else "positive")
-                    else:
-                        #G.add_node(i+1, istr="return-void")
-                        G.add_edge(c[0], i, direction="negative" if c[1] else "positive")
-            else:
-                raise Exception("Errore if, len(conn) = " + str(len(conn)) + ", conn = " + str(conn))
+            #if len(conn) <= 3:
+            for c in conn:
+                if i+1 < n_lines:
+                    G.add_edge(c[0], i, direction="negative" if c[1] else "positive")
+                else:
+                    #G.add_node(i+1, istr="return-void")
+                    G.add_edge(c[0], i, direction="negative" if c[1] else "positive")
+            #else:
+            #    raise Exception("Errore if (" + li[i] + "), len(conn) = " + str(len(conn)) + ", conn = " + str(conn))
 
             # connetto con l'istruzione dopo se siste
             if i+1 < n_lines:
@@ -515,10 +524,8 @@ def create_method_graph(li, ex, sw):
                 for c in conn:
                     G.add_edge(c, i)
                     #print("parsato",  li[i], "creo connessione inversa tra '", li[i], "(" + str(i) + ")", "' e '", G.nodes[c]['istr'], "(" + str(c) + ")", "'")
-            else:
-                # se nessun goto esiste suppongo che sia un goto inverso
-                # lo aggiungo alla lista dei backreference
-                goto_backref[li[i]] = i
+            # lo aggiungo alla lista dei backreference per i goto successi o nel caso che sia un goto inverso
+            goto_backref[li[i]] = i
 
             # connetto con l'istruzione dopo se esiste, senno' aggiungo un return-void 
             if i+1 < n_lines:
@@ -529,8 +536,9 @@ def create_method_graph(li, ex, sw):
             # aggiungo il nodo per l'istruzione attuale
             G.add_node(i, istr=normalize_generic_instruction(li[i]))
 
-            # cerco la catena di direttive per questo try e collego il try
-            G.add_edge(i, catch_directives[li[i]])
+            # verifico se esiste una catena di direttive per questo try e collego il try
+            if li[i] in catch_directives:
+                G.add_edge(i, catch_directives[li[i]])
 
             # verifico se esiste una direttiva catchall per questo try
             if li[i] + '_catchall' in catch_directives:
@@ -602,8 +610,9 @@ def create_method_graph(li, ex, sw):
                 G.add_edge(i, i+1)
                 #print("parsato",  li[i], "creo connessione tra '", li[i], "(" + str(i) + ")", "' e '", i+1, "'")
         i += 1
-
-    if not li[n_lines-1].startswith(("return", "throw")):
+    #print(n_lines-1)
+    # verifico che l'ultima linea contenga un return
+    if len(li) == 0 or not li[-1].startswith(("return", "throw", "goto")):
         G.add_node(n_lines, istr="return-void")
         G.add_edge(n_lines-1, n_lines)
 

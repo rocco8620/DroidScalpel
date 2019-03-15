@@ -1,5 +1,6 @@
 import os
 from glob import glob
+import multiprocessing
 
 from smali_parser import SmaliFileParser
 from commons import MethodStruct
@@ -8,6 +9,12 @@ from method_graph_comparer import are_methods_graph_equals
 PATH = 'McDonald\'s_com.mcdonalds.mobileapp/smali'
 #PATH = 'droid_scalpel_release_4/smali'
 
+def process_file(file_path):
+    c = SmaliFileParser(file_path).get_parsed_class()
+    for y in c.methods:
+        y.create_graph()
+    return None
+
 def main():
     tot_m = 0
 
@@ -15,14 +22,24 @@ def main():
 
     out = []
 
-    for x in files:
-        #print (x)
-        out.append(SmaliFileParser(x).get_parsed_class())
+    p = multiprocessing.Pool()
 
-    for x in out:
-        for y in x.methods:
-            tot_m += 1
-            y.create_graph()
+    out = p.map(process_file, files)
+
+    #for x in files:
+        #print (x)
+    #    out.append((process_file(x)))
+
+    #for x in out:
+        
+        #for y in x.methods:
+         #   tot_m += 1
+            #print(y.method_name)
+            #for z in y.instructions:
+            #    print(z)
+            #print(x.smali_file_path)
+            #print("-------------------")
+          #  y.create_graph()
 
     print("Parsed methods:", tot_m)
 
